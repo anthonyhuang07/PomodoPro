@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title id="title">Pomodiddily</title>
 
-    <meta content="SherlockShrub" property="og:title" />
-    <meta content="Your Personal Plant Detective" property="og:description" />
-    <meta content="https://hdsb-2023-hackathon.github.io/Anthony-Huang-HDSB-2023-Hackathon-Submission/"
-        property="og:url" />
-    <meta content="https://i.imgur.com/MZgkhIb.png" property="og:image" />
+    <meta content="" property="og:title" />
+    <meta content="" property="og:description" />
+    <meta content="" property="og:url" />
+    <meta content="" property="og:image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/MZgkhIb.png">
 
@@ -20,14 +23,22 @@
 <body>
     <main>
         <header>
-            <button id="pomodoro" type="button" onclick="" style="background-color: green;">Pomodoro</button>
-            <button id="short" type="button" onclick="">Short Break</button>
-            <button id="long" type="button" onclick="">Long Break</button>
+            <button id="pomodoro" type="button" onclick="switch1()"
+                style="background-color: hsl(240, 9%, 82.5%);">Pomodoro</button>
+            <button id="short" type="button" onclick="switch2()">Short Break</button>
+            <button id="long" type="button" onclick="switch3()">Long Break</button>
         </header>
         <h1 id="countdown"></h1>
-        <button id="start" type="button" onclick="letsGo()">Start</button>
-        <button id="stop" type="button" onclick="stopTimer()" style="display:none;">Pause</button>
-        <h2></h2>
+        <button id="start" type="button" onclick="letsGo()">
+            <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="-75 15 500 500">
+                <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+            </svg>
+        </button>
+        <button id="stop" type="button" onclick="stopTimer()" style="display:none;">
+            <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="-75 15 500 500">
+                <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/>
+            </svg>
+        </button>
         <script src="./src/scripts/main.js"></script>
     </main>
 </body>
