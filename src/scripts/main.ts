@@ -150,9 +150,9 @@ form.addEventListener('submit', function (e){
   e.preventDefault();
   stopTimer()
   settingsMenu()
-  defaultTime = (pomoInput.value * 60) + pomoInputSec;
-  shortTime = (shortInput.value * 60) + shortInputSec;
-  longTime = (longInput.value * 60) + longInputSec;
+  defaultTime = (parseInt(pomoInput.value) * 60) + parseInt(pomoInputSec.value);
+  shortTime = (parseInt(shortInput.value) * 60) + parseInt(shortInputSec.value);
+  longTime = (parseInt(longInput.value) * 60) + parseInt(longInputSec.value);
   switch (mode) {
     case 1:
       countdown.innerHTML = formatTime(defaultTime);
