@@ -119,10 +119,12 @@ main button:hover {
     align-items: center;
     justify-content: space-between;
 } #form button{
+    text-align: center;
     font-size: 1.5em;
     font-family: 'Oxygen', sans-serif;
     border-radius: 1000rem;
     padding: 1rem;
+    width: 40%;
     border: 0;
     background-color: #e0e0e5;
     box-shadow: 7px 7px 14px #b3b3b7, -7px -7px 14px #fff;
@@ -136,7 +138,6 @@ main button:hover {
     user-select: none;
 
     grid-area: footer;
-    margin-bottom: 1rem;
 }
 
 .pomodoro-timers{
@@ -172,4 +173,12 @@ main button:hover {
 .actionbtns{
     display:flex;
     justify-content: center;
+}
+
+#menuButtons{
+    margin-bottom: 1rem;
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-evenly;
 }

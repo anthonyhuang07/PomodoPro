@@ -150,3 +150,7 @@ form.addEventListener('submit', function (e) {
             break;
     }
 });
+form.addEventListener('reset', function (e) {
+    e.preventDefault();
+    settingsMenu();
+});
