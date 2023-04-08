@@ -12,6 +12,7 @@
 html {
     position: relative;
     height: 100%;
+    background-color: black;
 }
 
 body {
@@ -19,41 +20,156 @@ body {
     margin: 0;
     position: relative;
     font-family: 'Inter', sans-serif;
-    background-color: #E6E6E6;
+    background-color: rgb(230, 230, 230);
 }
 
-header{
+header {
     display: flex;
     justify-content: center;
-} header button{
+}
+
+header button {
     margin: 0 1rem 0 1rem;
+    color: #323239;
 }
 
 main {
     display: flex;
     align-items: center;
+    width: 100%;
     height: 100%;
     justify-content: center;
     flex-direction: column;
-} main h1{
-    font-size: 10em;
+}
+
+main h1 {
+    font-size: 15em;
     color: #323239;
-    cursor:default;
-} main button{
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main button {
     font-size: 1.5em;
     font-family: 'Inter', sans-serif;
     border-radius: 1000rem;
     padding: 1rem;
     border: 0;
     background-color: #e0e0e5;
-	box-shadow: 7px 7px 14px #b3b3b7, -7px -7px 14px #fff;
+    box-shadow: 7px 7px 14px #b3b3b7, -7px -7px 14px #fff;
     transition: background-color 0.25s;
-} main button:hover{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main button:hover {
     background-color: hsl(240, 9%, 82.5%) !important;
     cursor: pointer;
 }
 
-#start, #stop{
-    width: 70px;
-    height: 70px;
+#start,
+#stop,
+#settings {
+    margin: 0 1rem 0 1rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 0;
+}
+
+#stop{
+    display:none;
+}
+
+#pomodoro{
+    background-color: hsl(240, 9%, 82.5%);
+}
+
+.fa-play {
+    padding-left: 0.25rem;
+}
+
+#settingsmenu{
+    background-color: #e0e0e5;
+    position: absolute;
+    border-radius: 1rem;
+    width: 45%;
+    height: 55%;
+    font-family: 'Oxygen', sans-serif;
+}
+
+#form{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+        'menu main'
+        'menu main'
+        'menu footer';
+    justify-items: center;
+    align-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+} #form button{
+    font-size: 1.5em;
+    font-family: 'Oxygen', sans-serif;
+    border-radius: 1000rem;
+    padding: 1rem;
+    border: 0;
+    background-color: #e0e0e5;
+    box-shadow: 7px 7px 14px #b3b3b7, -7px -7px 14px #fff;
+    transition: background-color 0.25s;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    grid-area: footer;
+    margin-bottom: 1rem;
+}
+
+.pomodoro-timers{
+    width: 80%;
+    text-align: center;
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+} .pomodoro-timers input{
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 50%;
+} .pomodoro-timers h3{
+    margin-bottom: 0.3rem;
+} .pomodoro-timers h4{
+    margin: 0.2rem 0 0.2rem 0;
+}
+.pomodoro-side{
+    height: 100%;
+    border-radius: 1rem 0 0 1rem;
+    background-color: lightgray;
+    padding: 0 10rem 0 2rem;
+    grid-area: menu;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+}
+
+.actionbtns{
+    display:flex;
+    justify-content: center;
 }

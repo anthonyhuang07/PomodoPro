@@ -14,33 +14,70 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 
     <link rel="stylesheet" href="./src/main.css">
+
+    <script src="https://kit.fontawesome.com/ebba275678.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <main>
+        <div id="settingsmenu">
+            <form id="form">
+                <div class="pomodoro-side">
+                    <h2>Timer</h2><br>
+                </div>
+                <div class="pomodoro-timers">
+                    <div>
+                        <h3>Pomodoro</h3>
+                        <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25">
+                        <h4>Minutes</h4>
+                        <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0">
+                        <h4>Seconds</h4>
+                    </div>
+                    <div>
+                        <h3>Short Break</h3>
+                        <input title="Short Break Minutes" type="number" id="shortinput" value="5">
+                        <h4>Minutes</h4>
+                        <input title="Short Break Seconds" type="number" id="shortinputsec" value="0">
+                        <h4>Seconds</h4>
+                    </div>
+                    <div>
+                        <h3>Long Break</h3>
+                        <input title="Long Break Minutes" type="number" id="longinput" value="15">
+                        <h4>Minutes</h4>
+                        <input title="Long Break Seconds" type="number" id="longinputsec" value="0">
+                        <h4>Seconds</h4>
+                    </div>
+                </div>
+                <button title="Save Changes" type="submit">Save</button>
+            </form>
+        </div>
         <header>
-            <button id="pomodoro" type="button" onclick="switch1()"
-                style="background-color: hsl(240, 9%, 82.5%);">Pomodoro</button>
-            <button id="short" type="button" onclick="switch2()">Short Break</button>
-            <button id="long" type="button" onclick="switch3()">Long Break</button>
+            <button id="pomodoro" type="button"
+                onclick="modeSwitcher(1,defaultTime,darkBg,lightBg,lightBg)">Pomodoro</button>
+            <button id="short" type="button" onclick="modeSwitcher(2,shortTime,lightBg,darkBg,lightBg)">Short
+                Break</button>
+            <button id="long" type="button" onclick="modeSwitcher(3,longTime,lightBg,lightBg,darkBg)">Long
+                Break</button>
         </header>
         <h1 id="countdown"></h1>
-        <button id="start" type="button" onclick="letsGo()">
-            <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="-75 15 500 500">
-                <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
-            </svg>
-        </button>
-        <button id="stop" type="button" onclick="stopTimer()" style="display:none;">
-            <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg" viewBox="-75 15 500 500">
-                <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/>
-            </svg>
-        </button>
-        <script src="./src/scripts/main.js"></script>
+        <div class="actionbtns">
+            <button title="Start" id="start" type="button" onclick="letsGo()">
+                <i class="fa-solid fa-play fa-xl"></i>
+            </button>
+            <button title="Pause" id="stop" type="button" onclick="stopTimer()">
+                <i class="fa-solid fa-pause fa-xl"></i>
+            </button>
+            <button title="Settings" id="settings" type="button" onclick="settingsMenu()">
+                <i class="fa-solid fa-gear fa-xl"></i>
+            </button>
+        </div>
     </main>
+    <script src="./src/scripts/main.js"></script>
 </body>
 
 </html>
