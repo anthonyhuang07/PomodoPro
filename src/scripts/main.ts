@@ -1,5 +1,7 @@
 const countdown = document.getElementById("countdown") as HTMLInputElement;
 
+const background = document.getElementById("bg") as HTMLInputElement;
+
 const startButton = document.getElementById("start") as HTMLInputElement;
 const stopButton = document.getElementById("stop") as HTMLInputElement;
 
@@ -49,7 +51,7 @@ let timer: number;
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
-settings.style.display = "none";
+settings.style.display = "none";  
 setRandomBackgroundColor()
 
 function playSound() {
@@ -183,11 +185,14 @@ function modeSwitcher(modeNum: number, timeType: number, pomoCol: string, shortC
 
 function settingsMenu() {
   playSound()
-
   if (settings.style.display == "none") {
     settings.style.display = "block";
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
+    countdown.style.color = "rgba(255, 255, 255, 0.5)";
   } else if (settings.style.display == "block") {
     settings.style.display = "none";
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+    countdown.style.color = "rgba(255, 255, 255, 1)";
   }
 
 }
@@ -211,11 +216,9 @@ function switchMenu(val: number){
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (settings.style.display == "none") {
-    settings.style.display = "block";
-  } else if (settings.style.display == "block") {
-    settings.style.display = "none";
-  }
+  settings.style.display = "none";
+  background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+  countdown.style.color = "rgba(255, 255, 255, 1)";
   startButton.style.display = "block";
   stopButton.style.display = "none";
   clearInterval(timer)

@@ -31,6 +31,7 @@ body {
     width: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 0.25s;
 }
 
 header {
@@ -66,6 +67,7 @@ main h1 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    transition: color 0.25s;
 }
 
 main button {
@@ -86,7 +88,7 @@ main button {
 
 main button:hover {
     background-color: white !important;
-    cursor: poRubik;
+    cursor: pointer;
     color: black !important;
 }
 
@@ -107,7 +109,7 @@ main button:hover {
     background-color: transparent !important;
 }
 
-i{
+i {
     transition: color 0.25s;
 }
 
@@ -145,6 +147,21 @@ i{
     height: 50%;
     font-family: 'Rubik', sans-serif;
     transition: display 0.25s;
+    animation-name: slide-down;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+}
+
+@keyframes slide-down {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    100% {
+        top: 25%;
+        opacity: 1;
+    }
 }
 
 #form {
@@ -208,7 +225,7 @@ i{
     margin: 0.2rem 0 0.2rem 0;
 }
 
-#timerz{
+#timerz {
     display: flex;
     margin-bottom: 2rem;
 }
@@ -222,19 +239,21 @@ i{
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
-} #customizations input{
+}
+
+#customizations input {
     width: 100% !important;
 }
 
-#customizations > div {
+#customizations>div {
     margin: 2.5rem;
 }
 
-#imginput{
+#imginput {
     display: none;
 }
 
-#chooseImg{
+#chooseImg {
     width: 100% !important;
 }
 
@@ -251,13 +270,17 @@ i{
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
-} #sounds input {
+}
+
+#sounds input {
     display: none;
-} #sounds button {
+}
+
+#sounds button {
     width: 100% !important;
 }
 
-#sounds > div {
+#sounds>div {
     margin: 3rem;
 }
 
@@ -300,4 +323,10 @@ i{
     width: 50%;
     align-items: center;
     justify-content: space-evenly;
+}
+
+@media screen and (max-width: 500px) {
+    main h1 {
+        font-size: 8em;
+    }
 }

@@ -1,5 +1,6 @@
 "use strict";
 const countdown = document.getElementById("countdown");
+const background = document.getElementById("bg");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
 const pomodoro = document.getElementById("pomodoro");
@@ -164,9 +165,13 @@ function settingsMenu() {
     playSound();
     if (settings.style.display == "none") {
         settings.style.display = "block";
+        background.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
+        countdown.style.color = "rgba(255, 255, 255, 0.5)";
     }
     else if (settings.style.display == "block") {
         settings.style.display = "none";
+        background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+        countdown.style.color = "rgba(255, 255, 255, 1)";
     }
 }
 function switchMenu(val) {
@@ -189,12 +194,9 @@ function switchMenu(val) {
 }
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (settings.style.display == "none") {
-        settings.style.display = "block";
-    }
-    else if (settings.style.display == "block") {
-        settings.style.display = "none";
-    }
+    settings.style.display = "none";
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+    countdown.style.color = "rgba(255, 255, 255, 1)";
     startButton.style.display = "block";
     stopButton.style.display = "none";
     clearInterval(timer);
