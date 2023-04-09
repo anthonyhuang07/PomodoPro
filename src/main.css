@@ -223,8 +223,7 @@ i{
     justify-content: center;
     margin-top: 3rem;
 } #customizations input{
-    width: 100%;
-    padding: 0;
+    width: 100% !important;
 }
 
 #customizations > div {
@@ -254,6 +253,12 @@ i{
     margin-top: 3rem;
 } #sounds input {
     display: none;
+} #sounds button {
+    width: 100% !important;
+}
+
+#sounds > div {
+    margin: 3rem;
 }
 
 #sounds h3 {
