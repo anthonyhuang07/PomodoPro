@@ -29,6 +29,7 @@ const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
 
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
+let timerSound = new Audio('../../assets/alarm.mp3')
 
 let defaultTime: number = 1500;
 let shortTime: number = 300;
@@ -38,6 +39,7 @@ let numOfPomodoros: number = 0;
 let timer: number;
 
 pressSound.volume = 0.5;
+timerSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
 settings.style.display = "none";
 setRandomBackgroundColor()
@@ -45,6 +47,11 @@ setRandomBackgroundColor()
 function playSound() {
   pressSound.currentTime = 0;
   pressSound.play();
+}
+
+function playSoundTimer(){
+  timerSound.currentTime = 0;
+  timerSound.play();
 }
 
 function setRandomBackgroundColor() {
@@ -93,6 +100,7 @@ function startTimer(timeType: number) {
     document.title = formatTime(timeType) + " - PomodoPro";
 
     if (timeType <= 0) {
+      playSoundTimer();
       clearInterval(timer);
       if (mode === 1 && numOfPomodoros !== 3) {
         numOfPomodoros++
