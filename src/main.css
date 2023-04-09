@@ -26,11 +26,11 @@ body {
     background-size: cover;
 }
 
-#bg{
+#bg {
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 header {
@@ -102,19 +102,31 @@ main button:hover {
 
 #start:hover,
 #stop:hover,
-#settings:hover{
+#settings:hover {
     background-color: transparent !important;
 }
 
-i:hover{
+i{
+    transition: color 0.25s;
+}
+
+#start:hover i {
     color: white;
 }
 
-#stop{
-    display:none;
+#stop:hover i {
+    color: white;
 }
 
-#pomodoro{
+#settings:hover i {
+    color: white;
+}
+
+#stop {
+    display: none;
+}
+
+#pomodoro {
     background-color: white;
     color: black;
 }
@@ -123,30 +135,33 @@ i:hover{
     padding-left: 0.25rem;
 }
 
-#settingsmenu{
+#settingsmenu {
     color: white;
     background-color: hsl(0, 0%, 2.5%);
     position: absolute;
     border-radius: 1rem;
-    width: 50%;
+    width: 35%;
     height: 50%;
     font-family: 'Inter', sans-serif;
     transition: display 0.25s;
 }
 
-#form{
+#form {
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-areas:
         'menu main'
         'menu main'
+        'menu main'
         'menu footer';
-    justify-items: center;
-    align-content: space-between;
     align-items: center;
+    align-content: space-between;
     justify-content: space-between;
-} #form button{
+    justify-items: center;
+}
+
+#form button {
     text-align: center;
     font-size: 1.25em;
     font-family: 'Inter', sans-serif;
@@ -165,74 +180,95 @@ i:hover{
     grid-area: footer;
 }
 
-#pomodoro-timers{
+#pomodoro-timers {
     width: 80%;
     text-align: center;
     grid-area: main;
     display: flex;
     flex-direction: row;
     align-items: center;
-} #pomodoro-timers input{
+}
+
+#pomodoro-timers input {
     font-family: 'Inter', sans-serif;
     font-size: 1em;
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px hsl(0, 0%, 50%) solid;
     width: 50%;
-} #pomodoro-timers h3{
+    background-color: black;
+    color: white;
+}
+
+#pomodoro-timers h3 {
     margin-bottom: 0.3rem;
-} #pomodoro-timers h4{
+}
+
+#pomodoro-timers h4 {
     margin: 0.2rem 0 0.2rem 0;
 }
 
-#customizations{
-    width: 100%;
+#customizations {
+    width: 80%;
     text-align: center;
     grid-area: main;
     display: none;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-} #customizations h3{
+}
+
+#customizations h3 {
     margin-bottom: 0.3rem;
 }
 
-#sounds{
-    width: 100%;
+#sounds {
+    width: 80%;
     text-align: center;
     grid-area: main;
     display: none;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-} #sounds h3{
+}
+
+#sounds h3 {
     margin-bottom: 0.3rem;
 }
 
 
-.pomodoro-side{
+.pomodoro-side {
     height: 100%;
     border-radius: 1rem 0 0 1rem;
     background-color: hsl(0, 0%, 5%);
-    padding: 0 10rem 0 2rem;
+    padding: 2rem;
     grid-area: menu;
     display: flex;
-    flex-direction:column;
-    justify-content: center;
-} .pomodoro-side button{
-    width: 150% !important;
-}
-
-.actionbtns{
-    display:flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-#menuButtons{
+.pomodoro-side button {
+    padding: 2rem 0 2rem 0;
+    color: white;
+    background-color: transparent !important;
+}
+
+.pomodoro-side button:hover {
+    color: white !important;
+    background-color: transparent !important;
+    text-decoration: underline;
+}
+
+.actionbtns {
+    display: flex;
+    justify-content: center;
+}
+
+#menuButtons {
     margin-bottom: 1rem;
     display: flex;
     width: 50%;
     align-items: center;
     justify-content: space-evenly;
-    margin-left: 10vw;
-    margin-right: 10vw;
 }

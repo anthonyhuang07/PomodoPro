@@ -27,9 +27,10 @@ const colInput: any = document.getElementById("colinput") as HTMLInputElement;
 const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 
 const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
+const almSound: any = document.getElementById("almSound") as HTMLInputElement;
 
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
-let timerSound = new Audio('../../assets/alarm.mp3')
+let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/alarm.mp3?raw=true')
 
 let defaultTime: number = 1500;
 let shortTime: number = 300;
@@ -106,6 +107,7 @@ function startTimer(timeType: number) {
         numOfPomodoros++
         mode = 2;
         countdown.innerHTML = formatTime(shortTime);
+        document.title = formatTime(shortTime) + " - PomodoPro";
         pomodoro.style.backgroundColor = "transparent";
         pomodoro.style.color = "white";
         shortBreak.style.backgroundColor = "white";
@@ -115,6 +117,7 @@ function startTimer(timeType: number) {
       } else if (mode === 2 && numOfPomodoros !== 4) {
         mode = 1;
         countdown.innerHTML = formatTime(defaultTime);
+        document.title = formatTime(defaultTime) + " - PomodoPro";
         pomodoro.style.backgroundColor = "white";
         pomodoro.style.color = "black";
         shortBreak.style.backgroundColor = "transparent";
@@ -125,6 +128,7 @@ function startTimer(timeType: number) {
         numOfPomodoros++
         mode = 3;
         countdown.innerHTML = formatTime(longTime);
+        document.title = formatTime(longTime) + " - PomodoPro";
         longBreak.style.backgroundColor = "white";
         longBreak.style.color = "black";
         pomodoro.style.backgroundColor = "transparent";
@@ -135,6 +139,7 @@ function startTimer(timeType: number) {
         numOfPomodoros = 0;
         mode = 1;
         countdown.innerHTML = formatTime(defaultTime);
+        document.title = formatTime(defaultTime) + " - PomodoPro";
         longBreak.style.backgroundColor = "transparent";
         longBreak.style.color = "white";
         pomodoro.style.backgroundColor = "white";
@@ -237,6 +242,12 @@ form.addEventListener('submit', function (e) {
     const file = btnSound.files[0];
     const audioUrl = URL.createObjectURL(file);
     pressSound = new Audio(audioUrl);
+  }
+
+  if(almSound.files[0]){
+    const file = almSound.files[0];
+    const audioUrl = URL.createObjectURL(file);
+    timerSound = new Audio(audioUrl);
   }
   playSound()
 })

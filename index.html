@@ -29,14 +29,18 @@
         <div id="settingsmenu">
             <form id="form">
                 <div class="pomodoro-side">
-                    <button type="button" onclick="switchMenu(1)">Timer</button><br>
-                    <button type="button" onclick="switchMenu(2)">Customization</button><br>
+                    <button type="button" onclick="switchMenu(1)">Timer</button>
+                    <button type="button" onclick="switchMenu(2)">Customization</button>
                     <button type="button" onclick="switchMenu(3)">Sounds</button>
                 </div>
                 <div id="sounds">
                     <div>
                         <h3>Button Sound</h3>
-                        <input title="Pomodoro Minutes" type="file" id="btnSound" accept="audio/*">
+                        <input title="Button Sound" type="file" id="btnSound" accept="audio/*">
+                    </div>
+                    <div>
+                        <h3>Alarm Sound</h3>
+                        <input title="Alarm Sound" type="file" id="almSound" accept="audio/*">
                     </div>
                 </div>
                 <div id="customizations">
