@@ -148,6 +148,7 @@ function settingsMenu() {
     }
 }
 function switchMenu(val) {
+    pressSound.play();
     if (val == 2) {
         pomodoroTimer.style.display = "none";
         customization.style.display = "flex";

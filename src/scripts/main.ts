@@ -46,6 +46,7 @@ function setRandomBackgroundColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   document.body.style.backgroundColor = color;
+  colInput.value = color;
 }
 
 function formatTime(time: number): string {
@@ -164,6 +165,7 @@ function settingsMenu() {
 }
 
 function switchMenu(val: number){
+  pressSound.play()
   if(val == 2){
     pomodoroTimer.style.display = "none";
     customization.style.display = "flex";
