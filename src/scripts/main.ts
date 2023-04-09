@@ -32,6 +32,8 @@ const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 
 const chooseImg: any = document.getElementById("chooseImg") as HTMLInputElement;
 
+const fontInput: any = document.getElementById("fontinput") as HTMLInputElement;
+
 const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
 const almSound: any = document.getElementById("almSound") as HTMLInputElement;
 
@@ -39,7 +41,7 @@ const chooseBtnSound: any = document.getElementById("chooseBtnS") as HTMLInputEl
 const chooseAlmSound: any = document.getElementById("chooseAlmS") as HTMLInputElement;
 
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
-let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/alarm.mp3?raw=true')
+let timerSound = new Audio('https://github.com/anthonyhuang07/anthonyhuang07/blob/main/ringin.mp3?raw=true')
 
 let defaultTime: number = 1500;
 let shortTime: number = 300;
@@ -236,9 +238,7 @@ form.addEventListener('submit', function (e) {
       countdown.innerHTML = formatTime(longTime);
       break;
   }
-
-
-
+  
   document.body.style.backgroundColor = colInput.value
   
   if(imgInput.files[0]){
@@ -262,6 +262,21 @@ form.addEventListener('submit', function (e) {
     const audioUrl = URL.createObjectURL(file);
     timerSound = new Audio(audioUrl);
   }
+
+  if(fontInput.files[0]) {
+    const file = fontInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+      const fontUrl = reader.result;
+      const fontFace = new FontFace('CustomFont', `url(${fontUrl})`);
+      fontFace.load().then(function() {
+        (document.fonts as any).add(fontFace);
+        countdown.style.fontFamily = 'CustomFont, sans-serif';
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+  
   playSound()
 })
 

@@ -148,7 +148,7 @@ i {
     font-family: 'Rubik', sans-serif;
     transition: display 0.25s;
     animation-name: slide-down;
-    animation-duration: 1s;
+    animation-duration: 0.75s;
     animation-timing-function: ease;
 }
 
@@ -235,26 +235,33 @@ i {
     text-align: center;
     grid-area: main;
     display: none;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
+} #customizations button{
+    font-size: 1em;
 }
 
 #customizations input {
     width: 100% !important;
 }
 
-#customizations>div {
-    margin: 2.5rem;
+#chooseImg {
+    width: 100% !important;
+}
+
+#customizations>#backgroundcusto>div {
+    padding: 1.915rem;
+}
+
+#backgroundcusto{
+    display: flex;
+    flex-direction: row;
 }
 
 #imginput {
     display: none;
-}
-
-#chooseImg {
-    width: 100% !important;
 }
 
 #customizations h3 {
@@ -293,7 +300,7 @@ i {
     height: 100%;
     border-radius: 1rem 0 0 1rem;
     background-color: hsl(0, 0%, 5%);
-    padding: 2rem;
+    padding: 2.5rem;
     grid-area: menu;
     display: flex;
     flex-direction: column;
@@ -328,5 +335,11 @@ i {
 @media screen and (max-width: 500px) {
     main h1 {
         font-size: 8em;
+    }
+    header button {
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
+        margin: 0 1rem 0 1rem;
+        font-size: 1em;
+        color: white;
     }
 }

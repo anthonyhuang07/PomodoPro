@@ -21,12 +21,13 @@ const longInputSec = document.getElementById("longinputsec");
 const colInput = document.getElementById("colinput");
 const imgInput = document.getElementById("imginput");
 const chooseImg = document.getElementById("chooseImg");
+const fontInput = document.getElementById("fontinput");
 const btnSound = document.getElementById("btnSound");
 const almSound = document.getElementById("almSound");
 const chooseBtnSound = document.getElementById("chooseBtnS");
 const chooseAlmSound = document.getElementById("chooseAlmS");
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
-let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/alarm.mp3?raw=true');
+let timerSound = new Audio('https://github.com/anthonyhuang07/anthonyhuang07/blob/main/ringin.mp3?raw=true');
 let defaultTime = 1500;
 let shortTime = 300;
 let longTime = 900;
@@ -233,6 +234,19 @@ form.addEventListener('submit', function (e) {
         const file = almSound.files[0];
         const audioUrl = URL.createObjectURL(file);
         timerSound = new Audio(audioUrl);
+    }
+    if (fontInput.files[0]) {
+        const file = fontInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function () {
+            const fontUrl = reader.result;
+            const fontFace = new FontFace('CustomFont', `url(${fontUrl})`);
+            fontFace.load().then(function () {
+                document.fonts.add(fontFace);
+                countdown.style.fontFamily = 'CustomFont, sans-serif';
+            });
+        };
+        reader.readAsDataURL(file);
     }
     playSound();
 });

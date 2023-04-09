@@ -45,14 +45,22 @@
                     </div>
                 </div>
                 <div id="customizations">
-                    <div>
-                        <h3>Background Color</h3>
-                        <input title="Background Color" type="color" id="colinput">
+                    <div id="backgroundcusto">
+                        <div>
+                            <h3>Background Color</h3>
+                            <input title="Background Color" type="color" id="colinput">
+                        </div>
+                        <div>
+                            <h3>Background Image</h3>
+                            <input title="Background Image" type="file" id="imginput" accept="image/*">
+                            <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
+                        </div>
                     </div>
                     <div>
-                        <h3>Background Image</h3>
-                        <input title="Background Image" type="file" id="imginput" accept="image/*">
-                        <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
+                        <div>
+                            <h3>Timer Font (.TTF, .OTF, etc.)</h3>
+                            <input title="Background Color" type="file" accept="font/*" id="fontinput">
+                        </div>
                     </div>
                 </div>
                 <div id="pomodoro-timers">
@@ -68,14 +76,16 @@
                             <h3>Short Break</h3>
                             <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
                             <h4>Minutes</h4>
-                            <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0" max="59">
+                            <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0"
+                                max="59">
                             <h4>Seconds</h4>
                         </div>
                         <div>
                             <h3>Long Break</h3>
                             <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
                             <h4>Minutes</h4>
-                            <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0" max="59">
+                            <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0"
+                                max="59">
                             <h4>Seconds</h4>
                         </div>
                     </div>
@@ -93,9 +103,11 @@
         <header>
             <button id="pomodoro" type="button"
                 onclick="modeSwitcher(1,defaultTime,'white','transparent','transparent','black','white','white')">Pomodoro</button>
-            <button id="short" type="button" onclick="modeSwitcher(2,shortTime,'transparent','white','transparent','white','black','white')">Short
+            <button id="short" type="button"
+                onclick="modeSwitcher(2,shortTime,'transparent','white','transparent','white','black','white')">Short
                 Break</button>
-            <button id="long" type="button" onclick="modeSwitcher(3,longTime,'transparent','transparent','white','white','white','black')">Long
+            <button id="long" type="button"
+                onclick="modeSwitcher(3,longTime,'transparent','transparent','white','white','white','black')">Long
                 Break</button>
         </header>
         <h1 id="countdown"></h1>
