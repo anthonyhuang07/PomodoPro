@@ -6,6 +6,8 @@ const pomodoro = document.getElementById("pomodoro");
 const shortBreak = document.getElementById("short");
 const longBreak = document.getElementById("long");
 const settings = document.getElementById("settingsmenu");
+const pomodoroTimer = document.getElementById("pomodoro-timers");
+const customization = document.getElementById("customizations");
 const form = document.getElementById("form");
 const pomoInput = document.getElementById("pomoinput");
 const shortInput = document.getElementById("shortinput");
@@ -13,8 +15,8 @@ const longInput = document.getElementById("longinput");
 const pomoInputSec = document.getElementById("pomoinputsec");
 const shortInputSec = document.getElementById("shortinputsec");
 const longInputSec = document.getElementById("longinputsec");
-const darkBg = "hsl(240, 9%, 82.5%)";
-const lightBg = "#e0e0e5";
+const colInput = document.getElementById("colinput");
+const imgInput = document.getElementById("imginput");
 const pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
 let defaultTime = 1500;
 let shortTime = 300;
@@ -25,6 +27,16 @@ let timer;
 pressSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
 settings.style.display = "none";
+setRandomBackgroundColor();
+function setRandomBackgroundColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    document.body.style.backgroundColor = color;
+    colInput.value = color;
+}
 function formatTime(time) {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
@@ -57,47 +69,48 @@ function startTimer(timeType) {
         timeType--;
         countdown.innerHTML = formatTime(timeType);
         document.title = formatTime(timeType) + " - PomodoPro";
-        if (timeType === 0) {
+        if (timeType <= 0) {
             clearInterval(timer);
-            defaultTime = 1500;
-            shortTime = 300;
-            longTime = 900;
             if (mode === 1 && numOfPomodoros !== 3) {
                 numOfPomodoros++;
-                console.log(numOfPomodoros);
                 mode = 2;
                 countdown.innerHTML = formatTime(shortTime);
-                pomodoro.style.backgroundColor = lightBg;
-                shortBreak.style.backgroundColor = darkBg;
+                pomodoro.style.backgroundColor = "transparent";
+                pomodoro.style.color = "white";
+                shortBreak.style.backgroundColor = "white";
+                shortBreak.style.color = "black";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
             else if (mode === 2 && numOfPomodoros !== 4) {
                 mode = 1;
-                console.log(numOfPomodoros);
                 countdown.innerHTML = formatTime(defaultTime);
-                pomodoro.style.backgroundColor = darkBg;
-                shortBreak.style.backgroundColor = lightBg;
+                pomodoro.style.backgroundColor = "white";
+                pomodoro.style.color = "black";
+                shortBreak.style.backgroundColor = "transparent";
+                shortBreak.style.color = "white";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
             else if (mode === 1 && numOfPomodoros === 3) {
                 numOfPomodoros++;
-                console.log(numOfPomodoros);
                 mode = 3;
                 countdown.innerHTML = formatTime(longTime);
-                longBreak.style.backgroundColor = darkBg;
-                pomodoro.style.backgroundColor = lightBg;
+                longBreak.style.backgroundColor = "white";
+                longBreak.style.color = "black";
+                pomodoro.style.backgroundColor = "transparent";
+                pomodoro.style.color = "white";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
             else if (mode === 3) {
                 numOfPomodoros = 0;
-                console.log(numOfPomodoros);
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
-                longBreak.style.backgroundColor = lightBg;
-                pomodoro.style.backgroundColor = darkBg;
+                longBreak.style.backgroundColor = "transparent";
+                longBreak.style.color = "white";
+                pomodoro.style.backgroundColor = "white";
+                pomodoro.style.color = "black";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
@@ -110,7 +123,7 @@ function stopTimer() {
     stopButton.style.display = "none";
     clearInterval(timer);
 }
-function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol) {
+function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2, col3) {
     pressSound.play();
     numOfPomodoros = 0;
     clearInterval(timer);
@@ -121,6 +134,9 @@ function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol) {
     pomodoro.style.backgroundColor = pomoCol;
     shortBreak.style.backgroundColor = shortCol;
     longBreak.style.backgroundColor = longCol;
+    pomodoro.style.color = col1;
+    shortBreak.style.color = col2;
+    longBreak.style.color = col3;
 }
 function settingsMenu() {
     pressSound.play();
@@ -129,6 +145,16 @@ function settingsMenu() {
     }
     else if (settings.style.display == "block") {
         settings.style.display = "none";
+    }
+}
+function switchMenu(val) {
+    if (val == 2) {
+        pomodoroTimer.style.display = "none";
+        customization.style.display = "flex";
+    }
+    else if (val == 1) {
+        pomodoroTimer.style.display = "flex";
+        customization.style.display = "none";
     }
 }
 form.addEventListener('submit', function (e) {
@@ -149,6 +175,14 @@ form.addEventListener('submit', function (e) {
             countdown.innerHTML = formatTime(longTime);
             break;
     }
+    document.body.style.backgroundColor = colInput.value;
+    const file = imgInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function () {
+        const imageUrl = reader.result;
+        document.body.style.backgroundImage = `url(${imageUrl})`;
+    };
+    reader.readAsDataURL(file);
 });
 form.addEventListener('reset', function (e) {
     e.preventDefault();

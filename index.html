@@ -9,7 +9,7 @@
     <meta content="PomodoPro" property="og:title" />
     <meta content="A vastly customizable Pomodoro timer website." property="og:description" />
     <meta content="ah07.xyz/PomodoPro" property="og:url" />
-    <meta content="assets/favicon.png" property="og:image" />
+    <meta content="./assets/favicon.png" property="og:image" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,32 +24,44 @@
 </head>
 
 <body>
+    <div id="bg"></div>
     <main>
         <div id="settingsmenu">
             <form id="form">
                 <div class="pomodoro-side">
-                    <h2>Timer</h2><br>
+                    <button type="button" onclick="switchMenu(1)">Timer</button><br>
+                    <button type="button" onclick="switchMenu(2)">Customization</button>
                 </div>
-                <div class="pomodoro-timers">
+                <div id="customizations">
+                    <div>
+                        <h3>Background Color</h3>
+                        <input title="Pomodoro Minutes" type="color" id="colinput">
+                    </div>
+                    <div>
+                        <h3>Background Image</h3>
+                        <input title="Pomodoro Minutes" type="file" id="imginput" accept="image/*">
+                    </div>
+                </div>
+                <div id="pomodoro-timers">
                     <div>
                         <h3>Pomodoro</h3>
-                        <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25">
+                        <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
                         <h4>Minutes</h4>
-                        <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0">
+                        <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
                         <h4>Seconds</h4>
                     </div>
                     <div>
                         <h3>Short Break</h3>
-                        <input title="Short Break Minutes" type="number" id="shortinput" value="5">
+                        <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
                         <h4>Minutes</h4>
-                        <input title="Short Break Seconds" type="number" id="shortinputsec" value="0">
+                        <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0" max="59">
                         <h4>Seconds</h4>
                     </div>
                     <div>
                         <h3>Long Break</h3>
-                        <input title="Long Break Minutes" type="number" id="longinput" value="15">
+                        <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
                         <h4>Minutes</h4>
-                        <input title="Long Break Seconds" type="number" id="longinputsec" value="0">
+                        <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0" max="59">
                         <h4>Seconds</h4>
                     </div>
                 </div>
@@ -61,10 +73,10 @@
         </div>
         <header>
             <button id="pomodoro" type="button"
-                onclick="modeSwitcher(1,defaultTime,darkBg,lightBg,lightBg)">Pomodoro</button>
-            <button id="short" type="button" onclick="modeSwitcher(2,shortTime,lightBg,darkBg,lightBg)">Short
+                onclick="modeSwitcher(1,defaultTime,'white','transparent','transparent','black','white','white')">Pomodoro</button>
+            <button id="short" type="button" onclick="modeSwitcher(2,shortTime,'transparent','white','transparent','white','black','white')">Short
                 Break</button>
-            <button id="long" type="button" onclick="modeSwitcher(3,longTime,lightBg,lightBg,darkBg)">Long
+            <button id="long" type="button" onclick="modeSwitcher(3,longTime,'transparent','transparent','white','white','white','black')">Long
                 Break</button>
         </header>
         <h1 id="countdown"></h1>
