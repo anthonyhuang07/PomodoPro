@@ -19,6 +19,8 @@ const pomoInput: any = document.getElementById("pomoinput") as HTMLInputElement;
 const shortInput: any = document.getElementById("shortinput") as HTMLInputElement;
 const longInput: any = document.getElementById("longinput") as HTMLInputElement;
 
+const pomNo: any = document.getElementById("noofpom") as HTMLInputElement;
+
 const pomoInputSec: any = document.getElementById("pomoinputsec") as HTMLInputElement;
 const shortInputSec: any = document.getElementById("shortinputsec") as HTMLInputElement;
 const longInputSec: any = document.getElementById("longinputsec") as HTMLInputElement;
@@ -26,8 +28,13 @@ const longInputSec: any = document.getElementById("longinputsec") as HTMLInputEl
 const colInput: any = document.getElementById("colinput") as HTMLInputElement;
 const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 
+const chooseImg: any = document.getElementById("chooseImg") as HTMLInputElement;
+
 const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
 const almSound: any = document.getElementById("almSound") as HTMLInputElement;
+
+const chooseBtnSound: any = document.getElementById("chooseBtnS") as HTMLInputElement;
+const chooseAlmSound: any = document.getElementById("chooseAlmS") as HTMLInputElement;
 
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
 let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/alarm.mp3?raw=true')
@@ -103,7 +110,7 @@ function startTimer(timeType: number) {
     if (timeType <= 0) {
       playSoundTimer();
       clearInterval(timer);
-      if (mode === 1 && numOfPomodoros !== 3) {
+      if (mode === 1 && numOfPomodoros !== (pomNo.value-1)) {
         numOfPomodoros++
         mode = 2;
         countdown.innerHTML = formatTime(shortTime);
@@ -114,7 +121,7 @@ function startTimer(timeType: number) {
         shortBreak.style.color = "black";
         startButton.style.display = "block";
         stopButton.style.display = "none";
-      } else if (mode === 2 && numOfPomodoros !== 4) {
+      } else if (mode === 2 && numOfPomodoros !== pomNo.value) {
         mode = 1;
         countdown.innerHTML = formatTime(defaultTime);
         document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -124,7 +131,7 @@ function startTimer(timeType: number) {
         shortBreak.style.color = "white";
         startButton.style.display = "block";
         stopButton.style.display = "none";
-      } else if (mode === 1 && numOfPomodoros === 3) {
+      } else if (mode === 1 && numOfPomodoros === (pomNo.value-1)) {
         numOfPomodoros++
         mode = 3;
         countdown.innerHTML = formatTime(longTime);
@@ -226,6 +233,9 @@ form.addEventListener('submit', function (e) {
       countdown.innerHTML = formatTime(longTime);
       break;
   }
+
+
+
   document.body.style.backgroundColor = colInput.value
   
   if(imgInput.files[0]){
@@ -255,4 +265,16 @@ form.addEventListener('submit', function (e) {
 form.addEventListener('reset', function (e) {
   e.preventDefault();
   settingsMenu()
+})
+
+chooseImg.addEventListener('click', function () {
+  imgInput.click();
+})
+
+chooseBtnSound.addEventListener('click', function () {
+  btnSound.click();
+})
+
+chooseAlmSound.addEventListener('click', function () {
+  almSound.click();
 })

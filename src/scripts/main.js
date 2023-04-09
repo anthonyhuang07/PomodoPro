@@ -13,13 +13,17 @@ const form = document.getElementById("form");
 const pomoInput = document.getElementById("pomoinput");
 const shortInput = document.getElementById("shortinput");
 const longInput = document.getElementById("longinput");
+const pomNo = document.getElementById("noofpom");
 const pomoInputSec = document.getElementById("pomoinputsec");
 const shortInputSec = document.getElementById("shortinputsec");
 const longInputSec = document.getElementById("longinputsec");
 const colInput = document.getElementById("colinput");
 const imgInput = document.getElementById("imginput");
+const chooseImg = document.getElementById("chooseImg");
 const btnSound = document.getElementById("btnSound");
 const almSound = document.getElementById("almSound");
+const chooseBtnSound = document.getElementById("chooseBtnS");
+const chooseAlmSound = document.getElementById("chooseAlmS");
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
 let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/alarm.mp3?raw=true');
 let defaultTime = 1500;
@@ -85,7 +89,7 @@ function startTimer(timeType) {
         if (timeType <= 0) {
             playSoundTimer();
             clearInterval(timer);
-            if (mode === 1 && numOfPomodoros !== 3) {
+            if (mode === 1 && numOfPomodoros !== (pomNo.value - 1)) {
                 numOfPomodoros++;
                 mode = 2;
                 countdown.innerHTML = formatTime(shortTime);
@@ -97,7 +101,7 @@ function startTimer(timeType) {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 2 && numOfPomodoros !== 4) {
+            else if (mode === 2 && numOfPomodoros !== pomNo.value) {
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
                 document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -108,7 +112,7 @@ function startTimer(timeType) {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 1 && numOfPomodoros === 3) {
+            else if (mode === 1 && numOfPomodoros === (pomNo.value - 1)) {
                 numOfPomodoros++;
                 mode = 3;
                 countdown.innerHTML = formatTime(longTime);
@@ -233,4 +237,13 @@ form.addEventListener('submit', function (e) {
 form.addEventListener('reset', function (e) {
     e.preventDefault();
     settingsMenu();
+});
+chooseImg.addEventListener('click', function () {
+    imgInput.click();
+});
+chooseBtnSound.addEventListener('click', function () {
+    btnSound.click();
+});
+chooseAlmSound.addEventListener('click', function () {
+    almSound.click();
 });

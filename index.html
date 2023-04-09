@@ -13,8 +13,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 
@@ -37,10 +36,12 @@
                     <div>
                         <h3>Button Sound</h3>
                         <input title="Button Sound" type="file" id="btnSound" accept="audio/*">
+                        <button title="Choose Button Sound" id="chooseBtnS" type="button">Upload Audio</button>
                     </div>
                     <div>
                         <h3>Alarm Sound</h3>
                         <input title="Alarm Sound" type="file" id="almSound" accept="audio/*">
+                        <button title="Choose Alarm Sound" id="chooseAlmS" type="button">Upload Audio</button>
                     </div>
                 </div>
                 <div id="customizations">
@@ -51,29 +52,36 @@
                     <div>
                         <h3>Background Image</h3>
                         <input title="Background Image" type="file" id="imginput" accept="image/*">
+                        <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
                     </div>
                 </div>
                 <div id="pomodoro-timers">
-                    <div>
-                        <h3>Pomodoro</h3>
-                        <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
-                        <h4>Minutes</h4>
-                        <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
-                        <h4>Seconds</h4>
+                    <div id="timerz">
+                        <div>
+                            <h3>Pomodoro</h3>
+                            <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
+                            <h4>Minutes</h4>
+                            <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
+                            <h4>Seconds</h4>
+                        </div>
+                        <div>
+                            <h3>Short Break</h3>
+                            <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
+                            <h4>Minutes</h4>
+                            <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0" max="59">
+                            <h4>Seconds</h4>
+                        </div>
+                        <div>
+                            <h3>Long Break</h3>
+                            <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
+                            <h4>Minutes</h4>
+                            <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0" max="59">
+                            <h4>Seconds</h4>
+                        </div>
                     </div>
                     <div>
-                        <h3>Short Break</h3>
-                        <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
-                        <h4>Minutes</h4>
-                        <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0" max="59">
-                        <h4>Seconds</h4>
-                    </div>
-                    <div>
-                        <h3>Long Break</h3>
-                        <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
-                        <h4>Minutes</h4>
-                        <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0" max="59">
-                        <h4>Seconds</h4>
+                        <h3># Of Pomodoros Before Long Break</h3>
+                        <input title="Long Break Minutes" type="number" id="noofpom" value="4" min="1">
                     </div>
                 </div>
                 <div id="menuButtons">

@@ -18,7 +18,7 @@ body {
     height: 100%;
     margin: 0;
     position: relative;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rubik', sans-serif;
     background-color: rgb(25, 25, 25);
     background-image: url("");
     background-position: center;
@@ -40,6 +40,7 @@ header {
 }
 
 header button {
+    padding: 0.5rem 1rem 0.5rem 1rem !important;
     margin: 0 1rem 0 1rem;
     color: white;
 }
@@ -69,7 +70,7 @@ main h1 {
 
 main button {
     font-size: 1.5em;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rubik', sans-serif;
     border-radius: 1000rem;
     padding: 1rem;
     border: 2px white solid;
@@ -85,7 +86,7 @@ main button {
 
 main button:hover {
     background-color: white !important;
-    cursor: pointer;
+    cursor: poRubik;
     color: black !important;
 }
 
@@ -137,12 +138,12 @@ i{
 
 #settingsmenu {
     color: white;
-    background-color: hsl(0, 0%, 2.5%);
+    background-color: hsl(0, 0%, 10%);
     position: absolute;
     border-radius: 1rem;
     width: 35%;
     height: 50%;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rubik', sans-serif;
     transition: display 0.25s;
 }
 
@@ -152,19 +153,16 @@ i{
     display: grid;
     grid-template-areas:
         'menu main'
-        'menu main'
-        'menu main'
         'menu footer';
     align-items: center;
     align-content: space-between;
-    justify-content: space-between;
     justify-items: center;
 }
 
 #form button {
     text-align: center;
     font-size: 1.25em;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rubik', sans-serif;
     border-radius: 1000rem;
     padding: 0.5rem;
     width: 40%;
@@ -177,20 +175,22 @@ i{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    grid-area: footer;
+    grid-area: main;
+    cursor: pointer;
 }
 
 #pomodoro-timers {
     width: 80%;
+    margin-top: 3rem;
     text-align: center;
     grid-area: main;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 
 #pomodoro-timers input {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 1em;
     padding: 0.5rem;
     border-radius: 0.4rem;
@@ -208,6 +208,11 @@ i{
     margin: 0.2rem 0 0.2rem 0;
 }
 
+#timerz{
+    display: flex;
+    margin-bottom: 2rem;
+}
+
 #customizations {
     width: 80%;
     text-align: center;
@@ -216,6 +221,22 @@ i{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 3rem;
+} #customizations input{
+    width: 100%;
+    padding: 0;
+}
+
+#customizations > div {
+    margin: 2.5rem;
+}
+
+#imginput{
+    display: none;
+}
+
+#chooseImg{
+    width: 100% !important;
 }
 
 #customizations h3 {
@@ -230,6 +251,9 @@ i{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 3rem;
+} #sounds input {
+    display: none;
 }
 
 #sounds h3 {
