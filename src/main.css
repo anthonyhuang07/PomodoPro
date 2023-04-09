@@ -128,8 +128,8 @@ i:hover{
     background-color: hsl(0, 0%, 2.5%);
     position: absolute;
     border-radius: 1rem;
-    width: 45%;
-    height: 55%;
+    width: 50%;
+    height: 50%;
     font-family: 'Inter', sans-serif;
     transition: display 0.25s;
 }
@@ -195,6 +195,19 @@ i:hover{
 } #customizations h3{
     margin-bottom: 0.3rem;
 }
+
+#sounds{
+    width: 100%;
+    text-align: center;
+    grid-area: main;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+} #sounds h3{
+    margin-bottom: 0.3rem;
+}
+
 
 .pomodoro-side{
     height: 100%;

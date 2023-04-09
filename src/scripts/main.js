@@ -8,6 +8,7 @@ const longBreak = document.getElementById("long");
 const settings = document.getElementById("settingsmenu");
 const pomodoroTimer = document.getElementById("pomodoro-timers");
 const customization = document.getElementById("customizations");
+const sounds = document.getElementById("sounds");
 const form = document.getElementById("form");
 const pomoInput = document.getElementById("pomoinput");
 const shortInput = document.getElementById("shortinput");
@@ -17,7 +18,8 @@ const shortInputSec = document.getElementById("shortinputsec");
 const longInputSec = document.getElementById("longinputsec");
 const colInput = document.getElementById("colinput");
 const imgInput = document.getElementById("imginput");
-const pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
+const btnSound = document.getElementById("btnSound");
+let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
 let defaultTime = 1500;
 let shortTime = 300;
 let longTime = 900;
@@ -28,6 +30,10 @@ pressSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
 settings.style.display = "none";
 setRandomBackgroundColor();
+function playSound() {
+    pressSound.currentTime = 0;
+    pressSound.play();
+}
 function setRandomBackgroundColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -49,7 +55,7 @@ function formatTime(time) {
     return formattedTime;
 }
 function letsGo() {
-    pressSound.play();
+    playSound();
     switch (mode) {
         case 1:
             startTimer(defaultTime);
@@ -118,13 +124,13 @@ function startTimer(timeType) {
     }, 1000);
 }
 function stopTimer() {
-    pressSound.play();
+    playSound();
     startButton.style.display = "block";
     stopButton.style.display = "none";
     clearInterval(timer);
 }
 function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2, col3) {
-    pressSound.play();
+    playSound();
     numOfPomodoros = 0;
     clearInterval(timer);
     mode = modeNum;
@@ -139,7 +145,7 @@ function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2,
     longBreak.style.color = col3;
 }
 function settingsMenu() {
-    pressSound.play();
+    playSound();
     if (settings.style.display == "none") {
         settings.style.display = "block";
     }
@@ -148,20 +154,34 @@ function settingsMenu() {
     }
 }
 function switchMenu(val) {
-    pressSound.play();
+    playSound();
     if (val == 2) {
         pomodoroTimer.style.display = "none";
         customization.style.display = "flex";
+        sounds.style.display = "none";
     }
     else if (val == 1) {
         pomodoroTimer.style.display = "flex";
+        customization.style.display = "none";
+        sounds.style.display = "none";
+    }
+    else if (val == 3) {
+        sounds.style.display = "flex";
+        pomodoroTimer.style.display = "none";
         customization.style.display = "none";
     }
 }
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    stopTimer();
-    settingsMenu();
+    if (settings.style.display == "none") {
+        settings.style.display = "block";
+    }
+    else if (settings.style.display == "block") {
+        settings.style.display = "none";
+    }
+    startButton.style.display = "block";
+    stopButton.style.display = "none";
+    clearInterval(timer);
     defaultTime = (parseInt(pomoInput.value) * 60) + parseInt(pomoInputSec.value);
     shortTime = (parseInt(shortInput.value) * 60) + parseInt(shortInputSec.value);
     longTime = (parseInt(longInput.value) * 60) + parseInt(longInputSec.value);
@@ -177,13 +197,21 @@ form.addEventListener('submit', function (e) {
             break;
     }
     document.body.style.backgroundColor = colInput.value;
-    const file = imgInput.files[0];
-    const reader = new FileReader();
-    reader.onload = function () {
-        const imageUrl = reader.result;
-        document.body.style.backgroundImage = `url(${imageUrl})`;
-    };
-    reader.readAsDataURL(file);
+    if (imgInput.files[0]) {
+        const file = imgInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function () {
+            const imageUrl = reader.result;
+            document.body.style.backgroundImage = `url(${imageUrl})`;
+        };
+        reader.readAsDataURL(file);
+    }
+    if (btnSound.files[0]) {
+        const file = btnSound.files[0];
+        const audioUrl = URL.createObjectURL(file);
+        pressSound = new Audio(audioUrl);
+    }
+    playSound();
 });
 form.addEventListener('reset', function (e) {
     e.preventDefault();

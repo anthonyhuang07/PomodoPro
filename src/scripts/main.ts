@@ -11,6 +11,7 @@ const settings: any = document.getElementById("settingsmenu") as HTMLInputElemen
 
 const pomodoroTimer = document.getElementById("pomodoro-timers") as HTMLInputElement;
 const customization = document.getElementById("customizations") as HTMLInputElement;
+const sounds = document.getElementById("sounds") as HTMLInputElement;
 
 const form = document.getElementById("form") as HTMLInputElement;
 
@@ -25,7 +26,9 @@ const longInputSec: any = document.getElementById("longinputsec") as HTMLInputEl
 const colInput: any = document.getElementById("colinput") as HTMLInputElement;
 const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 
-const pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
+const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
+
+let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
 
 let defaultTime: number = 1500;
 let shortTime: number = 300;
@@ -38,6 +41,11 @@ pressSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
 settings.style.display = "none";
 setRandomBackgroundColor()
+
+function playSound() {
+  pressSound.currentTime = 0;
+  pressSound.play();
+}
 
 function setRandomBackgroundColor() {
   const letters = "0123456789ABCDEF";
@@ -62,7 +70,7 @@ function formatTime(time: number): string {
 }
 
 function letsGo() {
-  pressSound.play()
+  playSound()
   switch (mode) {
     case 1:
       startTimer(defaultTime);
@@ -131,14 +139,14 @@ function startTimer(timeType: number) {
 }
 
 function stopTimer() {
-  pressSound.play()
+  playSound()
   startButton.style.display = "block";
   stopButton.style.display = "none";
   clearInterval(timer)
 }
 
 function modeSwitcher(modeNum: number, timeType: number, pomoCol: string, shortCol: string, longCol: string, col1: string, col2: string, col3: string) {
-  pressSound.play()
+  playSound()
   numOfPomodoros = 0;
   clearInterval(timer);
   mode = modeNum
@@ -154,7 +162,7 @@ function modeSwitcher(modeNum: number, timeType: number, pomoCol: string, shortC
 }
 
 function settingsMenu() {
-  pressSound.play()
+  playSound()
 
   if (settings.style.display == "none") {
     settings.style.display = "block";
@@ -165,20 +173,32 @@ function settingsMenu() {
 }
 
 function switchMenu(val: number){
-  pressSound.play()
+  playSound()
   if(val == 2){
     pomodoroTimer.style.display = "none";
     customization.style.display = "flex";
+    sounds.style.display = "none";
   } else if (val == 1){
     pomodoroTimer.style.display = "flex";
+    customization.style.display = "none";
+    sounds.style.display = "none";
+  } else if (val == 3){
+    sounds.style.display = "flex";
+    pomodoroTimer.style.display = "none";
     customization.style.display = "none";
   }
 }
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  stopTimer()
-  settingsMenu()
+  if (settings.style.display == "none") {
+    settings.style.display = "block";
+  } else if (settings.style.display == "block") {
+    settings.style.display = "none";
+  }
+  startButton.style.display = "block";
+  stopButton.style.display = "none";
+  clearInterval(timer)
   defaultTime = (parseInt(pomoInput.value) * 60) + parseInt(pomoInputSec.value);
   shortTime = (parseInt(shortInput.value) * 60) + parseInt(shortInputSec.value);
   longTime = (parseInt(longInput.value) * 60) + parseInt(longInputSec.value);
@@ -195,13 +215,22 @@ form.addEventListener('submit', function (e) {
   }
   document.body.style.backgroundColor = colInput.value
   
-  const file = imgInput.files[0];
-  const reader = new FileReader();
-  reader.onload = function() {
-    const imageUrl = reader.result;
-    document.body.style.backgroundImage = `url(${imageUrl})`;
-  };
-  reader.readAsDataURL(file);
+  if(imgInput.files[0]){
+    const file = imgInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+      const imageUrl = reader.result;
+      document.body.style.backgroundImage = `url(${imageUrl})`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  if(btnSound.files[0]){
+    const file = btnSound.files[0];
+    const audioUrl = URL.createObjectURL(file);
+    pressSound = new Audio(audioUrl);
+  }
+  playSound()
 })
 
 form.addEventListener('reset', function (e) {
