@@ -22,6 +22,7 @@ const colInput = document.getElementById("colinput");
 const imgInput = document.getElementById("imginput");
 const chooseImg = document.getElementById("chooseImg");
 const fontInput = document.getElementById("fontinput");
+const chooseFont = document.getElementById("chooseFont");
 const btnSound = document.getElementById("btnSound");
 const almSound = document.getElementById("almSound");
 const chooseBtnSound = document.getElementById("chooseBtnS");
@@ -262,4 +263,7 @@ chooseBtnSound.addEventListener('click', function () {
 });
 chooseAlmSound.addEventListener('click', function () {
     almSound.click();
+});
+chooseFont.addEventListener('click', function () {
+    fontInput.click();
 });

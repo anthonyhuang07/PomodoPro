@@ -34,6 +34,8 @@ const chooseImg: any = document.getElementById("chooseImg") as HTMLInputElement;
 
 const fontInput: any = document.getElementById("fontinput") as HTMLInputElement;
 
+const chooseFont: any = document.getElementById("chooseFont") as HTMLInputElement;
+
 const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
 const almSound: any = document.getElementById("almSound") as HTMLInputElement;
 
@@ -295,4 +297,8 @@ chooseBtnSound.addEventListener('click', function () {
 
 chooseAlmSound.addEventListener('click', function () {
   almSound.click();
+})
+
+chooseFont.addEventListener('click', function () {
+  fontInput.click();
 })
