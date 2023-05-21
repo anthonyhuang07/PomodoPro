@@ -390,7 +390,7 @@ i {
         color: white;
         background-color: hsl(0, 0%, 10%);
         position: absolute;
-        border-radius: 1rem;
+        border-radius: 0 0 1rem 1rem;
         width: 75%;
         height: 75%;
         font-family: 'Rubik', sans-serif;
@@ -424,5 +424,9 @@ i {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .pomodoro-side button {
+        width: 100% !important;
     }
 }
