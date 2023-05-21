@@ -28,7 +28,7 @@ const almSound = document.getElementById("almSound");
 const chooseBtnSound = document.getElementById("chooseBtnS");
 const chooseAlmSound = document.getElementById("chooseAlmS");
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
-let timerSound = new Audio('https://github.com/anthonyhuang07/anthonyhuang07/blob/main/ringin.mp3?raw=true');
+let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/ringin.mp3?raw=true');
 let defaultTime = 1500;
 let shortTime = 300;
 let longTime = 900;
