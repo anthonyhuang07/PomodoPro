@@ -3,7 +3,7 @@ A minimalistic and customizable Pomodoro experience.
 
 Anthony Huang's submission for LyonHacks III
 
-![PomodoPro Logo](https://i.imgur.com/qP5Mxer.png)
+<img src="https://i.imgur.com/qP5Mxer.png" width="250px" alt="PomodoPro Logo">
 
 ## What is a Pomodoro timer?
 
