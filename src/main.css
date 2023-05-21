@@ -135,12 +135,12 @@ i {
     color: black;
 }
 
-.fa-play{
+.fa-play {
     margin-top: 1rem;
     padding-left: 0.25rem;
 }
 
-.fa-xl{
+.fa-xl {
     margin-top: 1rem;
 }
 
@@ -245,7 +245,9 @@ i {
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
-} #customizations button{
+}
+
+#customizations button {
     font-size: 1em;
 }
 
@@ -261,20 +263,24 @@ i {
     background-color: black !important;
     color: white;
     border: 1px hsl(0, 0%, 50%) solid !important;
-} #chooseImg:hover{
+}
+
+#chooseImg:hover {
     color: white !important;
 }
 
-#fontinput{
+#fontinput {
     display: none;
 }
 
-#chooseFont{
+#chooseFont {
     width: 50% !important;
     background-color: black !important;
     color: white;
     border: 1px hsl(0, 0%, 50%) solid !important;
-} #chooseFont:hover{
+}
+
+#chooseFont:hover {
     color: white !important;
 }
 
@@ -282,7 +288,7 @@ i {
     padding: 1.915rem;
 }
 
-#backgroundcusto{
+#backgroundcusto {
     display: flex;
     flex-direction: row;
     margin-bottom: 2rem;
@@ -316,7 +322,9 @@ i {
     background-color: black !important;
     color: white;
     border: 1px hsl(0, 0%, 50%) solid !important;
-} #sounds button:hover {
+}
+
+#sounds button:hover {
     color: white !important;
 }
 
@@ -367,6 +375,7 @@ i {
     main h1 {
         font-size: 8em;
     }
+
     header button {
         padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
         margin: 0 0.5rem 0 0.5rem;
@@ -379,7 +388,7 @@ i {
             top: 0;
             opacity: 0;
         }
-    
+
         100% {
             top: 12.5%;
             opacity: 1;
