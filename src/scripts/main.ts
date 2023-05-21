@@ -55,7 +55,7 @@ let timer: number;
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
-settings.style.display = "none";  
+settings.style.display = "none";
 setRandomBackgroundColor()
 
 function playSound() {
@@ -63,7 +63,7 @@ function playSound() {
   pressSound.play();
 }
 
-function playSoundTimer(){
+function playSoundTimer() {
   timerSound.currentTime = 0;
   timerSound.play();
 }
@@ -116,7 +116,7 @@ function startTimer(timeType: number) {
     if (timeType <= 0) {
       playSoundTimer();
       clearInterval(timer);
-      if (mode === 1 && numOfPomodoros !== (pomNo.value-1)) {
+      if (mode === 1 && numOfPomodoros !== (pomNo.value - 1)) {
         numOfPomodoros++
         mode = 2;
         countdown.innerHTML = formatTime(shortTime);
@@ -137,7 +137,7 @@ function startTimer(timeType: number) {
         shortBreak.style.color = "white";
         startButton.style.display = "block";
         stopButton.style.display = "none";
-      } else if (mode === 1 && numOfPomodoros === (pomNo.value-1)) {
+      } else if (mode === 1 && numOfPomodoros === (pomNo.value - 1)) {
         numOfPomodoros++
         mode = 3;
         countdown.innerHTML = formatTime(longTime);
@@ -201,17 +201,17 @@ function settingsMenu() {
 
 }
 
-function switchMenu(val: number){
+function switchMenu(val: number) {
   playSound()
-  if(val == 2){
+  if (val == 2) {
     pomodoroTimer.style.display = "none";
     customization.style.display = "flex";
     sounds.style.display = "none";
-  } else if (val == 1){
+  } else if (val == 1) {
     pomodoroTimer.style.display = "flex";
     customization.style.display = "none";
     sounds.style.display = "none";
-  } else if (val == 3){
+  } else if (val == 3) {
     sounds.style.display = "flex";
     pomodoroTimer.style.display = "none";
     customization.style.display = "none";
@@ -240,45 +240,45 @@ form.addEventListener('submit', function (e) {
       countdown.innerHTML = formatTime(longTime);
       break;
   }
-  
+
   document.body.style.backgroundColor = colInput.value
-  
-  if(imgInput.files[0]){
+
+  if (imgInput.files[0]) {
     const file = imgInput.files[0];
     const reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       const imageUrl = reader.result;
       document.body.style.backgroundImage = `url(${imageUrl})`;
     };
     reader.readAsDataURL(file);
   }
 
-  if(btnSound.files[0]){
+  if (btnSound.files[0]) {
     const file = btnSound.files[0];
     const audioUrl = URL.createObjectURL(file);
     pressSound = new Audio(audioUrl);
   }
 
-  if(almSound.files[0]){
+  if (almSound.files[0]) {
     const file = almSound.files[0];
     const audioUrl = URL.createObjectURL(file);
     timerSound = new Audio(audioUrl);
   }
 
-  if(fontInput.files[0]) {
+  if (fontInput.files[0]) {
     const file = fontInput.files[0];
     const reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       const fontUrl = reader.result;
       const fontFace = new FontFace('CustomFont', `url(${fontUrl})`);
-      fontFace.load().then(function() {
+      fontFace.load().then(function () {
         (document.fonts as any).add(fontFace);
         countdown.style.fontFamily = 'CustomFont, sans-serif';
       });
     };
     reader.readAsDataURL(file);
   }
-  
+
   playSound()
 })
 
