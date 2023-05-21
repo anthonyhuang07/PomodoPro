@@ -355,6 +355,7 @@ i {
 }
 
 #menuButtons {
+    grid-area: footer;
     margin-bottom: 1rem;
     display: flex;
     width: 50%;
@@ -417,10 +418,11 @@ i {
         width: 100%;
         border-radius: 1rem 1rem 0 0;
         background-color: hsl(0, 0%, 5%);
-        padding: 2.5rem;
+        padding: 1rem;
         grid-area: menu;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 }
