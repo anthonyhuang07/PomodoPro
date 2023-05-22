@@ -35,6 +35,10 @@ body {
     transition: background-color 0.25s;
 }
 
+.menuElementBottomMargin {
+    margin-bottom: 2rem;
+}
+
 header {
     display: flex;
     justify-content: center;
@@ -150,7 +154,7 @@ i {
     position: absolute;
     border-radius: 1rem;
     width: 40rem;
-    height: 55%;
+    height: 30rem;
     font-family: 'Rubik', sans-serif;
     transition: display 0.25s;
     animation-name: slide-down;
@@ -165,7 +169,7 @@ i {
     }
 
     100% {
-        top: 25%;
+        top: 19vmin;
         opacity: 1;
     }
 }
