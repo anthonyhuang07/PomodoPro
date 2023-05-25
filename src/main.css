@@ -156,20 +156,18 @@ i {
     width: 40rem;
     height: 30rem;
     font-family: 'Rubik', sans-serif;
-    transition: display 0.25s;
-    animation-name: slide-down;
+    transition: display 0.5s;
+    animation-name: menuAppear;
     animation-duration: 0.75s;
     animation-timing-function: ease;
 }
 
-@keyframes slide-down {
+@keyframes menuAppear {
     0% {
-        top: 0;
         opacity: 0;
     }
 
     100% {
-        top: 19vmin;
         opacity: 1;
     }
 }
@@ -387,18 +385,6 @@ i {
         color: white;
     }
 
-    @keyframes slide-down {
-        0% {
-            top: 0;
-            opacity: 0;
-        }
-
-        100% {
-            top: 12.5%;
-            opacity: 1;
-        }
-    }
-
     #settingsmenu {
         color: white;
         background-color: hsl(0, 0%, 10%);
@@ -407,10 +393,6 @@ i {
         width: 75%;
         height: 75%;
         font-family: 'Rubik', sans-serif;
-        transition: display 0.25s;
-        animation-name: slide-down;
-        animation-duration: 0.75s;
-        animation-timing-function: ease;
     }
 
     #form {
