@@ -52,8 +52,6 @@ let mode: number = 1 // 1 - Pomodoro | 2 - Short | 3 - Long
 let numOfPomodoros: number = 0;
 let timer: number;
 
-let autoResume: boolean = false;
-
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
@@ -80,19 +78,19 @@ function setRandomBackgroundColor() {
   colInput.value = color;
 }
 
-function formatTime(time: number): string {
+function formatTime(time: number): string { // formats the timer as xx:xx
   const hours = Math.floor(time / 3600);
   const minutes = Math.floor((time % 3600) / 60);
   const seconds = time % 60;
   let formattedTime = "";
   if (hours > 0) {
-    formattedTime += `${hours.toString().padStart(2, "0")}:`;
+    formattedTime += `${hours.toString()}:`;
   }
   formattedTime += `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   return formattedTime;
 }
 
-function letsGo() {
+function letsGo() { // Starts Timer
   playSound()
   switch (mode) {
     case 1:

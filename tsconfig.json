@@ -9,7 +9,6 @@
             "esnext",
         ],
         "allowJs": true,
-        "watch": true,
         "moduleResolution": "node",
     }
 }

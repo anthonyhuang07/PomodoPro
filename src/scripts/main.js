@@ -35,7 +35,6 @@ let longTime = 900;
 let mode = 1; // 1 - Pomodoro | 2 - Short | 3 - Long 
 let numOfPomodoros = 0;
 let timer;
-let autoResume = false;
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
 countdown.innerHTML = formatTime(defaultTime);
@@ -64,7 +63,7 @@ function formatTime(time) {
     const seconds = time % 60;
     let formattedTime = "";
     if (hours > 0) {
-        formattedTime += `${hours.toString().padStart(2, "0")}:`;
+        formattedTime += `${hours.toString()}:`;
     }
     formattedTime += `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     return formattedTime;
