@@ -27,72 +27,72 @@
     <main>
         <div id="settingsmenu">
             <form id="form">
-                <div class="pomodoro-side">
+                <div id="pomodoro-side">
                     <button type="button" onclick="switchMenu(1)">Timer</button>
-                    <button type="button" onclick="switchMenu(2)">Customization</button>
-                    <button type="button" onclick="switchMenu(3)">Sounds</button>
+                    <button type="button" onclick="switchMenu(2)">Customize</button>
+                    <button type="button" onclick="switchMenu(3)">About</button>
                 </div>
-                <div id="sounds">
-                    <div>
-                        <h3>Alarm Sound</h3>
-                        <input title="Alarm Sound" type="file" id="almSound" accept="audio/*">
-                        <button title="Choose Alarm Sound" id="chooseAlmS" type="button">Upload Audio</button>
-                    </div>
-                </div>
-                <div id="customizations">
-                    <div id="backgroundcusto">
-                        <div>
-                            <h3>Background Color</h3>
-                            <input title="Background Color" type="color" id="colinput">
+                <div id="mainMenu">
+                    <div id="customizations">
+                        <div id="backgroundcusto">
+                            <div>
+                                <h3>Background Color</h3>
+                                <input title="Background Color" type="color" id="colinput">
+                            </div>
+                            <div>
+                                <h3>Background Image</h3>
+                                <input title="Background Image" type="file" id="imginput"
+                                    accept="image/png, image/jpeg, image/gif">
+                                <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
+                            </div>
                         </div>
                         <div>
-                            <h3>Background Image</h3>
-                            <input title="Background Image" type="file" id="imginput" accept="image/png, image/jpeg, image/gif">
-                            <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
+                            <h3>Alarm Sound</h3>
+                            <input title="Alarm Sound" type="file" id="almSound" accept="audio/*">
+                            <button title="Choose Alarm Sound" id="chooseAlmS" type="button">Upload Audio</button>
                         </div>
-                    </div>
-                    <div>
                         <div>
                             <h3>Timer Font (.TTF, .OTF, etc.)</h3>
                             <input title="Timer Font" type="file" accept="font/*" id="fontinput">
                             <button title="Choose Timer Font" id="chooseFont" type="button">Upload Font</button>
                         </div>
                     </div>
-                </div>
-                <div id="pomodoro-timers">
-                    <div id="timerz">
-                        <div>
-                            <h3>Pomodoro</h3>
-                            <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
-                            <h4>Minutes</h4>
-                            <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
-                            <h4>Seconds</h4>
+                    <div id="pomodoro-timers">
+                        <div id="timerz">
+                            <div>
+                                <h3>Pomodoro</h3>
+                                <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
+                                <h4>Minutes</h4>
+                                <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
+                                <h4>Seconds</h4>
+                            </div>
+                            <div>
+                                <h3>Short Break</h3>
+                                <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
+                                <h4>Minutes</h4>
+                                <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0"
+                                    max="59">
+                                <h4>Seconds</h4>
+                            </div>
+                            <div>
+                                <h3>Long Break</h3>
+                                <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
+                                <h4>Minutes</h4>
+                                <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0"
+                                    max="59">
+                                <h4>Seconds</h4>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Short Break</h3>
-                            <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
-                            <h4>Minutes</h4>
-                            <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0"
-                                max="59">
-                            <h4>Seconds</h4>
-                        </div>
-                        <div>
-                            <h3>Long Break</h3>
-                            <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
-                            <h4>Minutes</h4>
-                            <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0"
-                                max="59">
-                            <h4>Seconds</h4>
+                        <div class="menuElementBottomMargin">
+                            <h3># Of Pomodoros Before Long Break</h3>
+                            <input title="Long Break Minutes" type="number" id="noofpom" value="4" min="1">
                         </div>
                     </div>
-                    <div class="menuElementBottomMargin">
-                        <h3># Of Pomodoros Before Long Break</h3>
-                        <input title="Long Break Minutes" type="number" id="noofpom" value="4" min="1">
+                    <div id="menuButtons">
+                        <button title="Cancel" type="reset" style="background-color: #6c757d; color: white;">Cancel</button>
+                        <button title="Reset to Default" type="button" onclick="resetToDefaults()" style="background-color: #dc3444; color: white;">Reset</button>
+                        <button title="Save Changes" type="submit">Save</button>
                     </div>
-                </div>
-                <div id="menuButtons">
-                    <button title="Cancel" type="reset">Cancel</button>
-                    <button title="Save Changes" type="submit">Save</button>
                 </div>
             </form>
         </div>
@@ -113,6 +113,9 @@
             </button>
             <button title="Pause" id="stop" type="button" onclick="stopTimer()">
                 <i class="fa-solid fa-pause fa-xl"></i>
+            </button>
+            <button title="Restart" id="restart" type="button" onclick="restartTimer()">
+                <i class="fa-solid fa-rotate fa-xl"></i>
             </button>
             <button title="Settings" id="settings" type="button" onclick="settingsMenu()">
                 <i class="fa-solid fa-gear fa-xl"></i>

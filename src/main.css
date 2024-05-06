@@ -16,11 +16,7 @@ html {
 
 body {
     height: 100%;
-    margin: 0;
-    position: relative;
     font-family: 'Rubik', sans-serif;
-    background-color: rgb(25, 25, 25);
-    background-image: url("");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -66,11 +62,6 @@ main h1 {
     font-size: 15em;
     color: white;
     cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     transition: color 0.25s;
 }
@@ -82,7 +73,7 @@ main button {
     padding: 1rem;
     border: 2px white solid;
     background-color: transparent;
-    transition: background-color 0.25s, color 0.25s;
+    transition: background-color 0.25s, border-color 0.25s;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -99,6 +90,7 @@ main button:hover {
 
 #start,
 #stop,
+#restart,
 #settings {
     margin: 0 1rem 0 1rem;
     width: 4.5rem;
@@ -110,6 +102,7 @@ main button:hover {
 
 #start:hover,
 #stop:hover,
+#restart:hover,
 #settings:hover {
     background-color: transparent !important;
 }
@@ -118,14 +111,9 @@ i {
     transition: color 0.25s;
 }
 
-#start:hover i {
-    color: white;
-}
-
-#stop:hover i {
-    color: white;
-}
-
+#start:hover i,
+#stop:hover i,
+#restart:hover i,
 #settings:hover i {
     color: white;
 }
@@ -153,8 +141,8 @@ i {
     background-color: hsl(0, 0%, 10%);
     position: absolute;
     border-radius: 1rem;
-    width: 40rem;
-    height: 30rem;
+    width: 50%;
+    height: 70%;
     font-family: 'Rubik', sans-serif;
     transition: display 0.5s;
     animation-name: menuAppear;
@@ -175,13 +163,7 @@ i {
 #form {
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-areas:
-        'menu main'
-        'menu footer';
-    align-items: center;
-    align-content: space-between;
-    justify-items: center;
+    display: flex;
 }
 
 #form button {
@@ -190,17 +172,9 @@ i {
     font-family: 'Rubik', sans-serif;
     border-radius: 1000rem;
     padding: 0.5rem;
-    width: 40%;
     border: 0;
     background-color: white;
     transition: background-color 0.25s;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    grid-area: main;
     cursor: pointer;
 }
 
@@ -286,6 +260,17 @@ i {
     color: white !important;
 }
 
+#almSound {
+    display: none;
+}
+
+#chooseAlmS {
+    width: 50% !important;
+    background-color: black !important;
+    color: white;
+    border: 1px hsl(0, 0%, 50%) solid !important;
+}
+
 #customizations>#backgroundcusto>div {
     padding: 1.915rem;
 }
@@ -304,59 +289,37 @@ i {
     margin-bottom: 0.3rem;
 }
 
-#sounds {
-    width: 100%;
-    text-align: center;
-    grid-area: main;
-    display: none;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 3rem;
-}
 
-#sounds input {
-    display: none;
-}
-
-#sounds button {
-    width: 75% !important;
-    background-color: black !important;
-    color: white;
-    border: 1px hsl(0, 0%, 50%) solid !important;
-}
-
-#sounds button:hover {
-    color: white !important;
-}
-
-#sounds h3 {
-    margin-bottom: 0.3rem;
-    margin: 0 3.5rem 0 3.5rem;
-}
-
-
-.pomodoro-side {
+#pomodoro-side {
+    width: 30%;
     height: 100%;
     border-radius: 1rem 0 0 1rem;
     background-color: hsl(0, 0%, 5%);
     padding: 2.5rem;
-    grid-area: menu;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.pomodoro-side button {
-    padding: 2rem 0 2rem 0;
+#pomodoro-side button {
+    text-align: left !important;
+    padding: 0.5rem 0 0.5rem 0;
     color: white;
     background-color: transparent !important;
 }
 
-.pomodoro-side button:hover {
+#pomodoro-side button:hover {
     color: white !important;
     background-color: transparent !important;
     text-decoration: underline;
+}
+
+#mainMenu {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .actionbtns {
@@ -365,12 +328,23 @@ i {
 }
 
 #menuButtons {
-    grid-area: footer;
     margin-bottom: 1rem;
     display: flex;
-    width: 50%;
+    width: 100%;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+#menuButtons button {
+    margin: 0 0.5rem 0 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 2px solid transparent;
+} 
+
+#menuButtons button:hover{
+    background-color: transparent !important;
+    border: 2px white solid;
+    color: white !important;
 }
 
 @media screen and (max-width: 500px) {

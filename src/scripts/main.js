@@ -3,13 +3,13 @@ const countdown = document.getElementById("countdown");
 const background = document.getElementById("bg");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
+const settingsButton = document.getElementById("settings");
 const pomodoro = document.getElementById("pomodoro");
 const shortBreak = document.getElementById("short");
 const longBreak = document.getElementById("long");
 const settings = document.getElementById("settingsmenu");
 const pomodoroTimer = document.getElementById("pomodoro-timers");
 const customization = document.getElementById("customizations");
-const sounds = document.getElementById("sounds");
 const form = document.getElementById("form");
 const pomoInput = document.getElementById("pomoinput");
 const shortInput = document.getElementById("shortinput");
@@ -39,7 +39,6 @@ timerSound.volume = 0.5;
 countdown.innerHTML = "Loading";
 settings.style.display = "none";
 setRandomBackgroundColor();
-// Add this code to your script to retrieve values from cache on page load
 window.onload = () => {
     const bgImageUrl = localStorage.getItem("bgImageUrl");
     if (bgImageUrl) {
@@ -63,8 +62,15 @@ window.onload = () => {
         longInput.value = Math.floor(longTime / 60);
         longInputSec.value = longTime % 60;
     }
-    countdown.innerHTML = formatTime(defaultTime); // Update countdown display with defaultTime
+    countdown.innerHTML = formatTime(defaultTime);
 };
+document.addEventListener('click', function (event) {
+    const isClickInsideSettings = settings.contains(event.target);
+    const isClickOnSettingsButton = settingsButton.contains(event.target);
+    if (!isClickInsideSettings && !isClickOnSettingsButton && settings.style.display === "block") {
+        settingsMenu();
+    }
+});
 function playSound() {
     pressSound.currentTime = 0;
     pressSound.play();
@@ -177,6 +183,22 @@ function stopTimer() {
     stopButton.style.display = "none";
     clearInterval(timer);
 }
+function restartTimer() {
+    playSound();
+    currentTime = -1;
+    clearInterval(timer);
+    switch (mode) {
+        case 1:
+            countdown.innerHTML = formatTime(defaultTime);
+            break;
+        case 2:
+            countdown.innerHTML = formatTime(shortTime);
+            break;
+        case 3:
+            countdown.innerHTML = formatTime(longTime);
+            break;
+    }
+}
 function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2, col3) {
     playSound();
     currentTime = -1;
@@ -211,18 +233,38 @@ function switchMenu(val) {
     if (val == 2) {
         pomodoroTimer.style.display = "none";
         customization.style.display = "flex";
-        sounds.style.display = "none";
     }
     else if (val == 1) {
         pomodoroTimer.style.display = "flex";
         customization.style.display = "none";
-        sounds.style.display = "none";
     }
     else if (val == 3) {
-        sounds.style.display = "flex";
         pomodoroTimer.style.display = "none";
         customization.style.display = "none";
     }
+}
+function resetToDefaults() {
+    playSound();
+    settingsMenu();
+    setRandomBackgroundColor();
+    mode = 1;
+    numOfPomodoros = 0;
+    defaultTime = 1500;
+    shortTime = 300;
+    longTime = 900;
+    currentTime = -1;
+    countdown.innerHTML = formatTime(defaultTime);
+    document.body.style.backgroundImage = "";
+    pomoInput.value = Math.floor(defaultTime / 60);
+    pomoInputSec.value = defaultTime % 60;
+    shortInput.value = Math.floor(shortTime / 60);
+    shortInputSec.value = shortTime % 60;
+    longInput.value = Math.floor(longTime / 60);
+    longInputSec.value = longTime % 60;
+    localStorage.setItem("bgImageUrl", "");
+    localStorage.setItem("defaultTime", defaultTime.toString());
+    localStorage.setItem("shortTime", shortTime.toString());
+    localStorage.setItem("longTime", longTime.toString());
 }
 form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -248,7 +290,7 @@ form.addEventListener('submit', function (e) {
             break;
     }
     document.body.style.backgroundColor = colInput.value;
-    if (imgInput.files[0]) {
+    if (imgInput.files[0]) { // Set BG as Selected Image
         const file = imgInput.files[0];
         const reader = new FileReader();
         reader.onload = function () {
