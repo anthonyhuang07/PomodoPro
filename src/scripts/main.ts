@@ -36,10 +36,8 @@ const fontInput: any = document.getElementById("fontinput") as HTMLInputElement;
 
 const chooseFont: any = document.getElementById("chooseFont") as HTMLInputElement;
 
-const btnSound: any = document.getElementById("btnSound") as HTMLInputElement;
 const almSound: any = document.getElementById("almSound") as HTMLInputElement;
 
-const chooseBtnSound: any = document.getElementById("chooseBtnS") as HTMLInputElement;
 const chooseAlmSound: any = document.getElementById("chooseAlmS") as HTMLInputElement;
 
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true')
@@ -55,9 +53,42 @@ let timer: number;
 
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
-countdown.innerHTML = formatTime(defaultTime);
+countdown.innerHTML = "Loading";
 settings.style.display = "none";
 setRandomBackgroundColor()
+
+// Add this code to your script to retrieve values from cache on page load
+
+window.onload = () => {
+  const bgImageUrl = localStorage.getItem("bgImageUrl");
+  if (bgImageUrl) {
+    document.body.style.backgroundImage = `url(${bgImageUrl})`;
+  }
+  
+  const storedDefaultTime = localStorage.getItem("defaultTime");
+  if (storedDefaultTime) {
+    defaultTime = parseInt(storedDefaultTime);
+    pomoInput.value = Math.floor(defaultTime / 60);
+    pomoInputSec.value = defaultTime % 60;
+  }
+
+  const storedShortTime = localStorage.getItem("shortTime");
+  if (storedShortTime) {
+    shortTime = parseInt(storedShortTime);
+    shortInput.value = Math.floor(shortTime / 60);
+    shortInputSec.value = shortTime % 60;
+  }
+
+  const storedLongTime = localStorage.getItem("longTime");
+  if (storedLongTime) {
+    longTime = parseInt(storedLongTime);
+    longInput.value = Math.floor(longTime / 60);
+    longInputSec.value = longTime % 60;
+  }
+
+  countdown.innerHTML = formatTime(defaultTime); // Update countdown display with defaultTime
+};
+
 
 function playSound() {
   pressSound.currentTime = 0;
@@ -255,16 +286,11 @@ form.addEventListener('submit', function (e) {
     const file = imgInput.files[0];
     const reader = new FileReader();
     reader.onload = function () {
-      const imageUrl = reader.result;
+      const imageUrl = reader.result as string;
       document.body.style.backgroundImage = `url(${imageUrl})`;
+      localStorage.setItem("bgImageUrl", imageUrl); // Save background image URL to cache
     };
     reader.readAsDataURL(file);
-  }
-
-  if (btnSound.files[0]) {
-    const file = btnSound.files[0];
-    const audioUrl = URL.createObjectURL(file);
-    pressSound = new Audio(audioUrl);
   }
 
   if (almSound.files[0]) {
@@ -287,6 +313,10 @@ form.addEventListener('submit', function (e) {
     reader.readAsDataURL(file);
   }
 
+  localStorage.setItem("defaultTime", defaultTime.toString()); // Save default time to cache
+  localStorage.setItem("shortTime", shortTime.toString()); // Save short time to cache
+  localStorage.setItem("longTime", longTime.toString()); // Save long time to cache
+
   playSound()
 })
 
@@ -297,10 +327,6 @@ form.addEventListener('reset', function (e) {
 
 chooseImg.addEventListener('click', function () {
   imgInput.click();
-})
-
-chooseBtnSound.addEventListener('click', function () {
-  btnSound.click();
 })
 
 chooseAlmSound.addEventListener('click', function () {
