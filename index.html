@@ -32,18 +32,20 @@
                     <button type="button" onclick="switchMenu(2)">Customize</button>
                     <button type="button" onclick="switchMenu(3)">About</button>
                 </div>
+                <div id="seperator"></div>
                 <div id="mainMenu">
                     <div id="customizations">
                         <div id="backgroundcusto">
-                            <div>
+                            <!--<div>
                                 <h3>Background Color</h3>
                                 <input title="Background Color" type="color" id="colinput">
-                            </div>
+                            </div>-->
                             <div>
                                 <h3>Background Image</h3>
                                 <input title="Background Image" type="file" id="imginput"
                                     accept="image/png, image/jpeg, image/gif">
-                                <button title="Choose Background Image" id="chooseImg" type="button">Upload Image</button>
+                                <button title="Choose Background Image" id="chooseImg" type="button">Upload
+                                    Image</button>
                             </div>
                         </div>
                         <div>
@@ -58,39 +60,64 @@
                         </div>
                     </div>
                     <div id="pomodoro-timers">
+                        <h2>Timers</h2>
+                        <br>
                         <div id="timerz">
                             <div>
                                 <h3>Pomodoro</h3>
-                                <input title="Pomodoro Minutes" type="number" id="pomoinput" value="25" min="0">
-                                <h4>Minutes</h4>
-                                <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0" min="0" max="59">
-                                <h4>Seconds</h4>
+                                <div class="inputTime">
+                                    <div>
+                                        <input type="number" id="pomoinput" value="25" min="0">
+                                        <input class="unit" value="mins" disabled>
+                                    </div>
+                                    <div>
+                                        <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0"
+                                            min="0" max="59">
+                                        <input class="unit" value="mins" disabled>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <h3>Short Break</h3>
-                                <input title="Short Break Minutes" type="number" id="shortinput" value="5" min="0">
-                                <h4>Minutes</h4>
-                                <input title="Short Break Seconds" type="number" id="shortinputsec" value="0" min="0"
-                                    max="59">
-                                <h4>Seconds</h4>
+                                <div class="inputTime">
+                                    <div>
+                                        <input title="Short Break Minutes" type="number" id="shortinput" value="5"
+                                            min="0">
+                                        <div class="unit">mins</div>
+                                    </div>
+                                    <div>
+                                        <input title="Short Break Seconds" type="number" id="shortinputsec" value="0"
+                                            min="0" max="59">
+                                        <div class="unit">secs</div>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <h3>Long Break</h3>
-                                <input title="Long Break Minutes" type="number" id="longinput" value="15" min="0">
-                                <h4>Minutes</h4>
-                                <input title="Long Break Seconds" type="number" id="longinputsec" value="0" min="0"
-                                    max="59">
-                                <h4>Seconds</h4>
+                                <div class="inputTime">
+                                    <div>
+                                        <input title="Long Break Minutes" type="number" id="longinput" value="15"
+                                            min="0">
+                                        <div class="unit">mins</div>
+                                    </div>
+                                    <div>
+                                        <input title="Long Break Seconds" type="number" id="longinputsec" value="0"
+                                            min="0" max="59">
+                                        <div class="unit">secs</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="menuElementBottomMargin">
-                            <h3># Of Pomodoros Before Long Break</h3>
+                        <div>
+                            <h3>Pomodoros Before Long Break</h3>
                             <input title="Long Break Minutes" type="number" id="noofpom" value="4" min="1">
                         </div>
                     </div>
                     <div id="menuButtons">
-                        <button title="Cancel" type="reset" style="background-color: #6c757d; color: white;">Cancel</button>
-                        <button title="Reset to Default" type="button" onclick="resetToDefaults()" style="background-color: #dc3444; color: white;">Reset</button>
+                        <button title="Cancel" type="reset"
+                            style="background-color: #6c757d; color: white;">Cancel</button>
+                        <button title="Reset to Default" type="button" onclick="resetToDefaults()"
+                            style="background-color: #dc3444; color: white;">Reset</button>
                         <button title="Save Changes" type="submit">Save</button>
                     </div>
                 </div>
@@ -107,6 +134,12 @@
                 Break</button>
         </header>
         <h1 id="countdown"></h1> <!--TIMER-->
+        <div id="poms">
+            <div class="pom p1"></div>
+            <div class="pom p2"></div>
+            <div class="pom p3"></div>
+            <div class="pom p4"></div>
+        </div>
         <div class="actionbtns"> <!--BOTTOM BUTTONS-->
             <button title="Start" id="start" type="button" onclick="letsGo()">
                 <i class="fa-solid fa-play fa-xl"></i>

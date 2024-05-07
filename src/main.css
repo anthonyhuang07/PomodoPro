@@ -21,6 +21,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     transition: background-color 1s, background-image 1s;
+    overscroll-behavior: none;
 }
 
 #bg {
@@ -28,11 +29,11 @@ body {
     width: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
+    background-image: url();
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     transition: background-color 0.25s;
-}
-
-.menuElementBottomMargin {
-    margin-bottom: 2rem;
 }
 
 header {
@@ -64,6 +65,13 @@ main h1 {
     cursor: default;
     user-select: none;
     transition: color 0.25s;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+}
+
+main h2 {
+    font-size: 2em;
 }
 
 main button {
@@ -138,11 +146,11 @@ i {
 
 #settingsmenu {
     color: white;
-    background-color: hsl(0, 0%, 10%);
+    background-color: black;
     position: absolute;
     border-radius: 1rem;
-    width: 50%;
-    height: 70%;
+    width: 60%;
+    height: 80%;
     font-family: 'Rubik', sans-serif;
     transition: display 0.5s;
     animation-name: menuAppear;
@@ -164,6 +172,7 @@ i {
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
 }
 
 #form button {
@@ -178,38 +187,75 @@ i {
     cursor: pointer;
 }
 
+#seperator {
+    border: 0.75px solid #393942;
+    border-radius: 1000rem;
+    height: 90%;
+    margin-right: 2rem;
+}
+
 #pomodoro-timers {
-    width: 80%;
-    margin-top: 3rem;
-    text-align: center;
-    grid-area: main;
-    display: flex;
+    width: 100%;
+    height: 80%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin: 2rem 0 2rem 0;
+    overflow: scroll;
 }
 
 #pomodoro-timers input {
     font-family: 'Rubik', sans-serif;
     font-size: 1em;
-    padding: 0.5rem;
-    border-radius: 0.4rem;
-    border: 1px hsl(0, 0%, 50%) solid;
-    width: 50%;
     background-color: black;
     color: white;
+    border: 2px solid #606060;
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+    width: 50%;
+}
+
+#pomodoro-timers input[type="number"]::-webkit-inner-spin-button,
+#pomodoro-timers input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 #pomodoro-timers h3 {
-    margin-bottom: 0.3rem;
-}
-
-#pomodoro-timers h4 {
-    margin: 0.2rem 0 0.2rem 0;
+    margin-bottom: 0.5rem;
 }
 
 #timerz {
     display: flex;
     margin-bottom: 2rem;
+}
+
+#timerz div {
+    margin-right: 0.5rem;
+}
+
+#timerz .inputTime div {
+    display: flex;
+}
+
+#timerz .inputTime div input {
+    width: 3rem;
+    border: 2px solid #606060;
+    border-right: 0;
+    border-radius: 0.4rem 0 0 0.4rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#timerz .inputTime div .unit {
+    width: 3.5rem !important;
+    border: 2px solid #606060;
+    border-radius: 0 0.4rem 0.4rem 0;
+    border-left: 0 !important;
+    color: #b3b3b3 !important;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 #customizations {
@@ -220,7 +266,6 @@ i {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 3rem;
 }
 
 #customizations button {
@@ -294,7 +339,7 @@ i {
     width: 30%;
     height: 100%;
     border-radius: 1rem 0 0 1rem;
-    background-color: hsl(0, 0%, 5%);
+    background-color: black;
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -316,10 +361,49 @@ i {
 
 #mainMenu {
     width: 70%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
+}
+
+#menuButtons {
+    display: flex;
+    width: 100%;
     align-items: center;
+    justify-content: center;
+    height: 20%;
+}
+
+#menuButtons button {
+    margin: 0 0.5rem 0 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 2px solid transparent;
+}
+
+#menuButtons button:hover {
+    background-color: transparent !important;
+    border: 2px white solid;
+    color: white !important;
+}
+
+#poms {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.pom {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1000rem;
+    margin: 0 0.5rem 0 0.5rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    transition: background-color 0.25s;
+}
+
+.p1 {
+    background-color: white;
 }
 
 .actionbtns {
@@ -327,24 +411,14 @@ i {
     justify-content: center;
 }
 
-#menuButtons {
-    margin-bottom: 1rem;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+@keyframes rotate360 {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-#menuButtons button {
-    margin: 0 0.5rem 0 0.5rem;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border: 2px solid transparent;
-} 
-
-#menuButtons button:hover{
-    background-color: transparent !important;
-    border: 2px white solid;
-    color: white !important;
+#restart.clicked i {
+    animation: rotate360 1s ease;
 }
 
 @media screen and (max-width: 500px) {

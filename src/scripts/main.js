@@ -3,6 +3,7 @@ const countdown = document.getElementById("countdown");
 const background = document.getElementById("bg");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
+const restartButton = document.getElementById("restart");
 const settingsButton = document.getElementById("settings");
 const pomodoro = document.getElementById("pomodoro");
 const shortBreak = document.getElementById("short");
@@ -15,6 +16,9 @@ const pomoInput = document.getElementById("pomoinput");
 const shortInput = document.getElementById("shortinput");
 const longInput = document.getElementById("longinput");
 const pomNo = document.getElementById("noofpom");
+const p2 = document.querySelector(".p2");
+const p3 = document.querySelector(".p3");
+const p4 = document.querySelector(".p4");
 const pomoInputSec = document.getElementById("pomoinputsec");
 const shortInputSec = document.getElementById("shortinputsec");
 const longInputSec = document.getElementById("longinputsec");
@@ -80,13 +84,10 @@ function playSoundTimer() {
     timerSound.play();
 }
 function setRandomBackgroundColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    document.body.style.backgroundColor = color;
-    colInput.value = color;
+    const randomHue = Math.floor(Math.random() * 360);
+    const color1 = `hsl(${randomHue}, 75%, 50%)`;
+    const color2 = `hsl(${(randomHue + 60) % 360}, 75%, 50%)`;
+    document.body.style.backgroundImage = `linear-gradient(135deg, ${color1}, ${color2})`;
 }
 function formatTime(time) {
     const hours = Math.floor(time / 3600);
@@ -121,14 +122,13 @@ function startTimer() {
     stopButton.style.display = "block";
     timer = setInterval(() => {
         currentTime--;
-        countdown.innerHTML = formatTime(currentTime);
         document.title = formatTime(currentTime) + " - PomodoPro";
+        countdown.innerHTML = formatTime(currentTime);
         if (currentTime <= 0) {
             currentTime = -1;
             playSoundTimer();
             clearInterval(timer);
             if (mode === 1 && numOfPomodoros !== (pomNo.value - 1)) { // if was in Pomodoro Mode (go to Short)
-                numOfPomodoros++;
                 mode = 2;
                 countdown.innerHTML = formatTime(shortTime);
                 document.title = formatTime(shortTime) + " - PomodoPro";
@@ -140,6 +140,7 @@ function startTimer() {
                 stopButton.style.display = "none";
             }
             else if (mode === 2 && numOfPomodoros !== pomNo.value) { // if was in Short Time Mode (return to Default)
+                numOfPomodoros++;
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
                 document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -162,8 +163,11 @@ function startTimer() {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 3) { // if was in Short Time Mode (return to Default)
+            else if (mode === 3) { // if was in Long Time Mode (return to Default)
                 numOfPomodoros = 0;
+                p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+                p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+                p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
                 document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -173,6 +177,15 @@ function startTimer() {
                 pomodoro.style.color = "black";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
+            }
+            if (numOfPomodoros == 1) {
+                p2.style.backgroundColor = "white";
+            }
+            else if (numOfPomodoros == 2) {
+                p3.style.backgroundColor = "white";
+            }
+            else if (numOfPomodoros == 3) {
+                p4.style.backgroundColor = "white";
             }
         }
     }, 1000);
@@ -184,9 +197,14 @@ function stopTimer() {
     clearInterval(timer);
 }
 function restartTimer() {
-    playSound();
+    restartButton.classList.add("clicked");
+    restartButton.style.pointerEvents = "none";
+    setTimeout(function () {
+        restartButton.classList.remove("clicked");
+        restartButton.style.pointerEvents = "auto";
+    }, 1000);
     currentTime = -1;
-    clearInterval(timer);
+    stopTimer();
     switch (mode) {
         case 1:
             countdown.innerHTML = formatTime(defaultTime);
@@ -201,6 +219,9 @@ function restartTimer() {
 }
 function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2, col3) {
     playSound();
+    p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+    p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+    p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
     currentTime = -1;
     numOfPomodoros = 0;
     clearInterval(timer);
@@ -224,7 +245,7 @@ function settingsMenu() {
     }
     else if (settings.style.display == "block") {
         settings.style.display = "none";
-        background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+        background.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
         countdown.style.color = "rgba(255, 255, 255, 1)";
     }
 }
@@ -245,9 +266,6 @@ function switchMenu(val) {
 }
 function resetToDefaults() {
     clearInterval(timer);
-    playSound();
-    settingsMenu();
-    setRandomBackgroundColor();
     mode = 1;
     numOfPomodoros = 0;
     defaultTime = 1500;
@@ -261,6 +279,9 @@ function resetToDefaults() {
     pomodoro.style.color = "black";
     startButton.style.display = "block";
     stopButton.style.display = "none";
+    p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+    p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+    p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
     countdown.innerHTML = formatTime(defaultTime);
     document.body.style.backgroundImage = "";
     pomoInput.value = Math.floor(defaultTime / 60);
@@ -269,6 +290,9 @@ function resetToDefaults() {
     shortInputSec.value = shortTime % 60;
     longInput.value = Math.floor(longTime / 60);
     longInputSec.value = longTime % 60;
+    playSound();
+    settingsMenu();
+    setRandomBackgroundColor();
     localStorage.setItem("bgImageUrl", "");
     localStorage.setItem("defaultTime", defaultTime.toString());
     localStorage.setItem("shortTime", shortTime.toString());
@@ -277,7 +301,7 @@ function resetToDefaults() {
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     settings.style.display = "none";
-    background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
     countdown.style.color = "rgba(255, 255, 255, 1)";
     startButton.style.display = "block";
     stopButton.style.display = "none";
