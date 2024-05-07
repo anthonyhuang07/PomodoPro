@@ -275,6 +275,8 @@ function switchMenu(val: number) {
 }
 
 function resetToDefaults() {
+  clearInterval(timer)
+  
   playSound();
   settingsMenu()
   setRandomBackgroundColor()
@@ -285,6 +287,14 @@ function resetToDefaults() {
   shortTime = 300;
   longTime = 900;
   currentTime = -1;
+
+  document.title = formatTime(defaultTime) + " - PomodoPro";
+  longBreak.style.backgroundColor = "transparent";
+  longBreak.style.color = "white";
+  pomodoro.style.backgroundColor = "white";
+  pomodoro.style.color = "black";
+  startButton.style.display = "block";
+  stopButton.style.display = "none";
 
   countdown.innerHTML = formatTime(defaultTime);
   document.body.style.backgroundImage = "";
