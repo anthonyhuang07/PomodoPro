@@ -72,6 +72,12 @@ main h1 {
 
 main h2 {
     font-size: 2em;
+    font-weight: 650;
+}
+
+main h3 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 main button {
@@ -151,11 +157,11 @@ i {
     border-radius: 1rem;
     width: 60%;
     height: 80%;
-    font-family: 'Rubik', sans-serif;
     transition: display 0.5s;
     animation-name: menuAppear;
     animation-duration: 0.75s;
     animation-timing-function: ease;
+    font-family: "Inter", sans-serif;
 }
 
 @keyframes menuAppear {
@@ -178,7 +184,7 @@ i {
 #form button {
     text-align: center;
     font-size: 1.25em;
-    font-family: 'Rubik', sans-serif;
+    font-family: "Inter", sans-serif;
     border-radius: 1000rem;
     padding: 0.5rem;
     border: 0;
@@ -204,7 +210,7 @@ i {
 }
 
 #pomodoro-timers input {
-    font-family: 'Rubik', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 1em;
     background-color: black;
     color: white;
@@ -218,10 +224,6 @@ i {
 #pomodoro-timers input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-#pomodoro-timers h3 {
-    margin-bottom: 0.5rem;
 }
 
 #timerz {
@@ -246,6 +248,15 @@ i {
     appearance: textfield;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
+    transition: border-color 0.25s;
+}
+
+#timerz .inputTime div input:focus{
+    border-color: white;
+}
+
+#timerz .inputTime div input:focus + .unit{
+    border-color: white;
 }
 
 #timerz .inputTime div .unit {
@@ -256,16 +267,24 @@ i {
     color: #b3b3b3 !important;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
+    font-weight: 300;
+    transition: border-color 0.25s;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor:text;
 }
 
 #customizations {
-    width: 80%;
-    text-align: center;
-    grid-area: main;
-    display: none;
+    width: 100%;
+    height: 80%;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    margin: 2rem 0 2rem 0;
+    overflow: scroll;
 }
 
 #customizations button {
@@ -316,11 +335,11 @@ i {
     border: 1px hsl(0, 0%, 50%) solid !important;
 }
 
-#customizations>#backgroundcusto>div {
+#customizations>#backgroundcustom>div {
     padding: 1.915rem;
 }
 
-#backgroundcusto {
+#backgroundcustom {
     display: flex;
     flex-direction: row;
     margin-bottom: 2rem;
@@ -364,8 +383,6 @@ i {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
 }
 
 #menuButtons {

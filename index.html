@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/WB8I5Hx.png">
 
@@ -68,12 +69,12 @@
                                 <div class="inputTime">
                                     <div>
                                         <input type="number" id="pomoinput" value="25" min="0">
-                                        <input class="unit" value="mins" disabled>
+                                        <div class="unit" onclick="focusInput('pomoinput')">mins</div>
                                     </div>
                                     <div>
                                         <input title="Pomodoro Seconds" type="number" id="pomoinputsec" value="0"
                                             min="0" max="59">
-                                        <input class="unit" value="mins" disabled>
+                                        <div class="unit" onclick="focusInput('pomoinputsec')">secs</div>
                                     </div>
                                 </div>
                             </div>
@@ -83,12 +84,12 @@
                                     <div>
                                         <input title="Short Break Minutes" type="number" id="shortinput" value="5"
                                             min="0">
-                                        <div class="unit">mins</div>
+                                        <div class="unit" onclick="focusInput('shortinput')">mins</div>
                                     </div>
                                     <div>
                                         <input title="Short Break Seconds" type="number" id="shortinputsec" value="0"
                                             min="0" max="59">
-                                        <div class="unit">secs</div>
+                                        <div class="unit" onclick="focusInput('shortinputsec')">secs</div>
                                     </div>
                                 </div>
                             </div>
@@ -98,12 +99,12 @@
                                     <div>
                                         <input title="Long Break Minutes" type="number" id="longinput" value="15"
                                             min="0">
-                                        <div class="unit">mins</div>
+                                        <div class="unit" onclick="focusInput('longinput')">mins</div>
                                     </div>
                                     <div>
                                         <input title="Long Break Seconds" type="number" id="longinputsec" value="0"
                                             min="0" max="59">
-                                        <div class="unit">secs</div>
+                                        <div class="unit" onclick="focusInput('longinputsec')">secs</div>
                                     </div>
                                 </div>
                             </div>

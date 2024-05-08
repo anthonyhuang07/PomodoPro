@@ -338,6 +338,11 @@ function resetToDefaults() {
   localStorage.setItem("longTime", longTime.toString());
 }
 
+function focusInput(inputId: string) {
+  const input = document.getElementById(inputId) as HTMLInputElement;
+  input.focus();
+}
+
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   settings.style.display = "none";

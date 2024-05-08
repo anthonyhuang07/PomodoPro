@@ -298,6 +298,10 @@ function resetToDefaults() {
     localStorage.setItem("shortTime", shortTime.toString());
     localStorage.setItem("longTime", longTime.toString());
 }
+function focusInput(inputId) {
+    const input = document.getElementById(inputId);
+    input.focus();
+}
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     settings.style.display = "none";
