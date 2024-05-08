@@ -193,6 +193,37 @@ i {
     cursor: pointer;
 }
 
+#pomodoro-side {
+    width: 30%;
+    height: 100%;
+    border-radius: 1rem 0 0 1rem;
+    background-color: black;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#pomodoro-side button {
+    text-align: left !important;
+    padding: 0.5rem 0 0.5rem 0;
+    color: white;
+    background-color: transparent !important;
+}
+
+#pomodoro-side button:hover {
+    color: white !important;
+    background-color: transparent !important;
+    text-decoration: underline;
+}
+
+#mainMenu {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 #seperator {
     border: 0.75px solid #393942;
     border-radius: 1000rem;
@@ -229,10 +260,6 @@ i {
 #timerz {
     display: flex;
     margin-bottom: 2rem;
-}
-
-#timerz div {
-    margin-right: 0.5rem;
 }
 
 #timerz .inputTime div {
@@ -278,6 +305,10 @@ i {
     cursor:text;
 }
 
+.timetype {
+    margin-right: 1rem;
+}
+
 #customizations {
     width: 100%;
     height: 80%;
@@ -285,6 +316,11 @@ i {
     align-items: flex-start;
     margin: 2rem 0 2rem 0;
     overflow: scroll;
+    display: none;
+}
+
+#customizations div {
+    margin-bottom: 2rem;
 }
 
 #customizations button {
@@ -298,91 +334,25 @@ i {
     border: 0;
 }
 
-#chooseImg {
-    width: 100% !important;
-    background-color: black !important;
-    color: white;
-    border: 1px hsl(0, 0%, 50%) solid !important;
-}
-
-#chooseImg:hover {
-    color: white !important;
-}
-
 #fontinput {
     display: none;
-}
-
-#chooseFont {
-    width: 50% !important;
-    background-color: black !important;
-    color: white;
-    border: 1px hsl(0, 0%, 50%) solid !important;
-}
-
-#chooseFont:hover {
-    color: white !important;
 }
 
 #almSound {
     display: none;
 }
 
-#chooseAlmS {
-    width: 50% !important;
-    background-color: black !important;
-    color: white;
-    border: 1px hsl(0, 0%, 50%) solid !important;
-}
-
-#customizations>#backgroundcustom>div {
-    padding: 1.915rem;
-}
-
 #backgroundcustom {
     display: flex;
     flex-direction: row;
-    margin-bottom: 2rem;
+}
+
+#backgroundcustom div {
+    margin-right: 1rem;
 }
 
 #imginput {
     display: none;
-}
-
-#customizations h3 {
-    margin-bottom: 0.3rem;
-}
-
-
-#pomodoro-side {
-    width: 30%;
-    height: 100%;
-    border-radius: 1rem 0 0 1rem;
-    background-color: black;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#pomodoro-side button {
-    text-align: left !important;
-    padding: 0.5rem 0 0.5rem 0;
-    color: white;
-    background-color: transparent !important;
-}
-
-#pomodoro-side button:hover {
-    color: white !important;
-    background-color: transparent !important;
-    text-decoration: underline;
-}
-
-#mainMenu {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 #menuButtons {
