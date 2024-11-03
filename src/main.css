@@ -237,7 +237,6 @@ i {
     flex-direction: column;
     align-items: flex-start;
     margin: 2rem 0 2rem 0;
-    overflow: scroll;
 }
 
 #pomodoro-timers input {
@@ -315,7 +314,6 @@ i {
     flex-direction: column;
     align-items: flex-start;
     margin: 2rem 0 2rem 0;
-    overflow: scroll;
     display: none;
 }
 
