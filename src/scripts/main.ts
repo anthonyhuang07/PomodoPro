@@ -31,7 +31,7 @@ const pomoInputSec: any = document.getElementById("pomoinputsec") as HTMLInputEl
 const shortInputSec: any = document.getElementById("shortinputsec") as HTMLInputElement;
 const longInputSec: any = document.getElementById("longinputsec") as HTMLInputElement;
 
-const colInput: any = document.getElementById("colinput") as HTMLInputElement;
+// const colInput: any = document.getElementById("colinput") as HTMLInputElement;
 const imgInput: any = document.getElementById("imginput") as HTMLInputElement;
 
 const chooseImg: any = document.getElementById("chooseImg") as HTMLInputElement;
@@ -367,7 +367,7 @@ form.addEventListener('submit', function (e) {
       break;
   }
 
-  document.body.style.backgroundColor = colInput.value
+  // document.body.style.backgroundColor = colInput.value
 
   if (imgInput.files[0]) { // Set BG as Selected Image
     const file = imgInput.files[0];

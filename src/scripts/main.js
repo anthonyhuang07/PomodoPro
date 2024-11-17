@@ -22,7 +22,7 @@ const p4 = document.querySelector(".p4");
 const pomoInputSec = document.getElementById("pomoinputsec");
 const shortInputSec = document.getElementById("shortinputsec");
 const longInputSec = document.getElementById("longinputsec");
-const colInput = document.getElementById("colinput");
+// const colInput: any = document.getElementById("colinput") as HTMLInputElement;
 const imgInput = document.getElementById("imginput");
 const chooseImg = document.getElementById("chooseImg");
 const fontInput = document.getElementById("fontinput");
@@ -325,7 +325,7 @@ form.addEventListener('submit', function (e) {
             countdown.innerHTML = formatTime(longTime);
             break;
     }
-    document.body.style.backgroundColor = colInput.value;
+    // document.body.style.backgroundColor = colInput.value
     if (imgInput.files[0]) { // Set BG as Selected Image
         const file = imgInput.files[0];
         const reader = new FileReader();
