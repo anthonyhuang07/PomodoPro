@@ -128,7 +128,7 @@ function startTimer() {
             currentTime = -1;
             playSoundTimer();
             clearInterval(timer);
-            if (mode === 1 && numOfPomodoros !== (pomNo.value - 1)) { // if was in Pomodoro Mode (go to Short)
+            if (mode === 1 && numOfPomodoros !== 3) { // if was in Pomodoro Mode (go to Short)
                 mode = 2;
                 countdown.innerHTML = formatTime(shortTime);
                 document.title = formatTime(shortTime) + " - PomodoPro";
@@ -139,7 +139,7 @@ function startTimer() {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 2 && numOfPomodoros !== pomNo.value) { // if was in Short Time Mode (return to Default)
+            else if (mode === 2 && numOfPomodoros !== 4) { // if was in Short Time Mode (return to Default)
                 numOfPomodoros++;
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
@@ -151,7 +151,7 @@ function startTimer() {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 1 && numOfPomodoros === (pomNo.value - 1)) { // if was in Pomodoro Mode (go to Long)
+            else if (mode === 1 && numOfPomodoros === 3) { // if was in Pomodoro Mode (go to Long)
                 numOfPomodoros++;
                 mode = 3;
                 countdown.innerHTML = formatTime(longTime);
