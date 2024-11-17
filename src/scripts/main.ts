@@ -22,7 +22,7 @@ const pomoInput: any = document.getElementById("pomoinput") as HTMLInputElement;
 const shortInput: any = document.getElementById("shortinput") as HTMLInputElement;
 const longInput: any = document.getElementById("longinput") as HTMLInputElement;
 
-const pomNo: any = document.getElementById("noofpom") as HTMLInputElement;
+// const pomNo: any = document.getElementById("noofpom") as HTMLInputElement;
 const p2: any = document.querySelector(".p2") as HTMLInputElement;
 const p3: any = document.querySelector(".p3") as HTMLInputElement;
 const p4: any = document.querySelector(".p4") as HTMLInputElement;
