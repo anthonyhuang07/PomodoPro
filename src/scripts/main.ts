@@ -53,7 +53,7 @@ let longTime: number = 900;
 let currentTime: number = -1;
 let mode: number = 1 // 1 - Pomodoro | 2 - Short | 3 - Long 
 let numOfPomodoros: number = 0;
-let timer: number;
+let timer: ReturnType<typeof setInterval>;
 
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;

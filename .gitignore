@@ -1,1 +1,22 @@
+# macOS
 .DS_Store
+
+# Node.js
+node_modules/
+forge.config.js
+
+package-lock.json
+package.json
+
+# Environment variables
+.env
+
+# Electron
+out/
+dist/
+temp/
+
+# VSCode
+.vscode/
+
+src/main.js
