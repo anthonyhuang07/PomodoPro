@@ -489,6 +489,10 @@ i {
     font-size: 1em;
     color: white;
   }
+  header button i {
+    color: white;
+    text-decoration: none;
+  }
   #settingsmenu {
     width: 90%;
   }
