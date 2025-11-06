@@ -580,6 +580,7 @@ async function openPiP() {
     link.href = 'https://fonts.googleapis.com/css2?family=Rubik&display=swap';
     d.head.appendChild(link);
   } catch { }
+
   d.body.style.margin = '0';
   d.body.style.display = 'flex';
   d.body.style.alignItems = 'center';
@@ -689,3 +690,5 @@ function updatePomFill() {
     d.style.backgroundColor = idx < fillCount ? 'white' : 'rgba(0, 0, 0, 0.25)';
   });
 }
+
+// comment bc github is stupid
