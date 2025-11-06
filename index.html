@@ -56,11 +56,13 @@
                             <h3>Alarm Sound</h3>
                             <input title="Alarm Sound" type="file" id="almSound" accept="audio/*">
                             <button title="Choose Alarm Sound" id="chooseAlmS" type="button">Upload Audio</button>
+                            <span id="almCheckmark" style="display: none;">✅</span>
                         </div>
                         <div>
                             <h3>Timer Font (.TTF, .OTF, etc.)</h3>
                             <input title="Timer Font" type="file" accept="font/*" id="fontinput">
                             <button title="Choose Timer Font" id="chooseFont" type="button">Upload Font</button>
+                            <span id="fontCheckmark" style="display: none;">✅</span>
                         </div>
                     </div>
                     <div id="pomodoro-timers">
@@ -153,6 +155,9 @@
             </button>
             <button title="Restart" id="restart" type="button" onclick="restartTimer()">
                 <i class="fa-solid fa-rotate fa-xl"></i>
+            </button>
+            <button title="Pop out timer" id="popout" type="button" onclick="openPiP()">
+                <i class="fa-solid fa-up-right-from-square fa-xl"></i>
             </button>
             <button title="Settings" id="settings" type="button" onclick="settingsMenu()">
                 <i class="fa-solid fa-gear fa-xl"></i>

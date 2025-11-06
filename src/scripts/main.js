@@ -29,6 +29,8 @@ const fontInput = document.getElementById("fontinput");
 const chooseFont = document.getElementById("chooseFont");
 const almSound = document.getElementById("almSound");
 const chooseAlmSound = document.getElementById("chooseAlmS");
+const almCheckmark = document.getElementById("almCheckmark");
+const fontCheckmark = document.getElementById("fontCheckmark");
 const noOfPomInput = document.getElementById("noofpom");
 const pomsContainer = document.getElementById("poms");
 const resetBtn = document.querySelector('#menuButtons button[title="Reset to Default"]');
@@ -62,6 +64,20 @@ window.onload = () => {
         timerSound.load();
     }
     catch { }
+    // Load persisted custom font if available
+    const storedFontDataUrl = localStorage.getItem('customFontDataUrl');
+    if (storedFontDataUrl) {
+        try {
+            const persistedFont = new FontFace('CustomFont', `url(${storedFontDataUrl})`);
+            persistedFont.load().then(() => {
+                document.fonts.add(persistedFont);
+                countdown.style.fontFamily = 'CustomFont, sans-serif';
+            }).catch(() => {
+                // ignore font loading errors silently
+            });
+        }
+        catch { }
+    }
     const bgImageUrl = localStorage.getItem("bgImageUrl");
     if (bgImageUrl) {
         document.body.style.backgroundImage = `url(${bgImageUrl})`;
@@ -359,10 +375,24 @@ imgInput.addEventListener('change', function () {
         imgCheckmark.style.display = "inline";
     }
 });
+almSound.addEventListener('change', function () {
+    if (almSound.files[0]) {
+        almCheckmark.style.display = "inline";
+    }
+});
+fontInput.addEventListener('change', function () {
+    if (fontInput.files[0]) {
+        fontCheckmark.style.display = "inline";
+    }
+});
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     imgCheckmark.style.display = "none";
+    almCheckmark.style.display = "none";
+    fontCheckmark.style.display = "none";
     chooseImg.innerHTML = "Upload Image";
+    chooseAlmSound.innerHTML = "Upload Audio";
+    chooseFont.innerHTML = "Upload Font";
     settings.style.display = "none";
     background.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
     countdown.style.color = "rgba(255, 255, 255, 1)";
@@ -425,6 +455,11 @@ form.addEventListener('submit', function (e) {
         const reader = new FileReader();
         reader.onload = function () {
             const fontUrl = reader.result;
+            // persist font DataURL so we can use it later (including in PiP)
+            try {
+                localStorage.setItem('customFontDataUrl', fontUrl);
+            }
+            catch { }
             const fontFace = new FontFace('CustomFont', `url(${fontUrl})`);
             fontFace.load().then(function () {
                 document.fonts.add(fontFace);
@@ -441,7 +476,11 @@ form.addEventListener('submit', function (e) {
 form.addEventListener('reset', function (e) {
     e.preventDefault();
     imgCheckmark.style.display = "none";
+    almCheckmark.style.display = "none";
+    fontCheckmark.style.display = "none";
     imgInput.value = ""; // Clear the uploaded image file from the input field
+    almSound.value = ""; // Clear the uploaded audio file
+    fontInput.value = ""; // Clear the uploaded font file
     settingsMenu();
 });
 chooseImg.addEventListener('click', function () {
@@ -456,8 +495,123 @@ chooseFont.addEventListener('click', function () {
 document.querySelectorAll('#menuButtons button').forEach(button => {
     button.addEventListener('click', function () {
         imgCheckmark.style.display = "none";
+        almCheckmark.style.display = "none";
+        fontCheckmark.style.display = "none";
     });
 });
+// ================= Document Picture-in-Picture (Pop-out) =================
+let pipWin = null;
+async function openPiP() {
+    playSound();
+    // Toggle close if already open
+    if (pipWin && !pipWin.closed) {
+        pipWin.close();
+        pipWin = null;
+        return;
+    }
+    const anyWindow = window;
+    if (!anyWindow.documentPictureInPicture || !anyWindow.documentPictureInPicture.requestWindow) {
+        alert('Pop-out is not supported in this browser.');
+        return;
+    }
+    const win = await anyWindow.documentPictureInPicture.requestWindow({
+        width: 360,
+        height: 160
+    });
+    pipWin = win;
+    // Minimal UI inside PiP window
+    const d = win.document;
+    // Ensure Rubik font is available in the PiP document (separate document does not inherit main page fonts)
+    try {
+        const link = d.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=Rubik&display=swap';
+        d.head.appendChild(link);
+    }
+    catch { }
+    d.body.style.margin = '0';
+    d.body.style.display = 'flex';
+    d.body.style.alignItems = 'center';
+    d.body.style.justifyContent = 'center';
+    d.body.style.width = '100%';
+    d.body.style.height = '100vh';
+    // Mirror the main page's background (gradient or image) into the PiP window
+    const mainBg = getComputedStyle(document.body);
+    const bgImage = mainBg.backgroundImage;
+    const bgSize = mainBg.backgroundSize;
+    const bgPos = mainBg.backgroundPosition;
+    const bgRepeat = mainBg.backgroundRepeat;
+    const bgColor = mainBg.backgroundColor;
+    if (bgImage && bgImage !== 'none') {
+        // Layer a semi-transparent black overlay over whatever the main page uses
+        d.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), ${bgImage}`;
+        if (bgSize)
+            d.body.style.backgroundSize = bgSize;
+        if (bgPos)
+            d.body.style.backgroundPosition = bgPos;
+        if (bgRepeat)
+            d.body.style.backgroundRepeat = bgRepeat;
+    }
+    else {
+        // Fallback to main background color with overlay
+        d.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25))`;
+        d.body.style.backgroundColor = bgColor || 'rgba(0,0,0,0.25)';
+    }
+    d.body.style.color = '#fff';
+    const h1 = d.createElement('h1');
+    h1.id = 'pipCountdown';
+    h1.textContent = countdown.textContent || '';
+    h1.style.fontSize = 'clamp(32px, 30vw, 80vh)';
+    h1.style.margin = '0';
+    h1.style.textAlign = 'center';
+    h1.style.fontFamily = getComputedStyle(countdown).fontFamily || 'Rubik, sans-serif';
+    d.body.appendChild(h1);
+    // If Rubik finishes loading in the PiP window, ensure it is applied
+    try {
+        if (d.fonts && d.fonts.ready) {
+            d.fonts.ready.then(() => {
+                // Keep CustomFont precedence if it loads later
+                if (!h1.style.fontFamily.includes('CustomFont')) {
+                    h1.style.fontFamily = `Rubik, ${h1.style.fontFamily || 'sans-serif'}`;
+                }
+            }).catch(() => { });
+        }
+    }
+    catch { }
+    // If a custom font was uploaded, load it into the PiP window as well
+    try {
+        const storedFontDataUrl = localStorage.getItem('customFontDataUrl');
+        if (storedFontDataUrl) {
+            const pipFont = new FontFace('CustomFont', `url(${storedFontDataUrl})`);
+            pipFont.load().then(() => {
+                d.fonts.add(pipFont);
+                h1.style.fontFamily = 'CustomFont, sans-serif';
+            }).catch(() => {
+                // ignore font loading issues silently
+            });
+        }
+    }
+    catch { }
+    // Clean up when user closes the PiP window
+    win.addEventListener('pagehide', () => {
+        pipWin = null;
+    });
+    // Initial sync
+    updatePiP();
+}
+// Mirror countdown text into the PiP window (if open)
+function updatePiP() {
+    if (!pipWin || pipWin.closed)
+        return;
+    const el = pipWin.document.getElementById('pipCountdown');
+    if (el)
+        el.textContent = countdown.textContent || '';
+}
+// Observe countdown text changes and mirror automatically
+const countdownObserver = new MutationObserver(() => updatePiP());
+countdownObserver.observe(countdown, { childList: true });
+// Expose for inline onclick usage
+window.openPiP = openPiP;
 // ----- Pomodoro dots rendering helpers -----
 function renderPomDots(total) {
     if (!pomsContainer)

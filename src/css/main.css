@@ -122,7 +122,8 @@ main button:hover {
 #start,
 #stop,
 #restart,
-#settings {
+#settings,
+#popout {
   margin: 0 1rem 0 1rem;
   width: 4.5rem;
   height: 4.5rem;
@@ -134,13 +135,15 @@ main button:hover {
 #start:hover,
 #stop:hover,
 #restart:hover,
-#settings:hover {
+#settings:hover,
+#popout:hover {
   background-color: transparent !important;
 }
 #start:hover i,
 #stop:hover i,
 #restart:hover i,
-#settings:hover i {
+#settings:hover i,
+#popout:hover i {
   color: white;
 }
 
