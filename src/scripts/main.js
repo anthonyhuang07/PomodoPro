@@ -29,8 +29,14 @@ const fontInput = document.getElementById("fontinput");
 const chooseFont = document.getElementById("chooseFont");
 const almSound = document.getElementById("almSound");
 const chooseAlmSound = document.getElementById("chooseAlmS");
+const noOfPomInput = document.getElementById("noofpom");
+const pomsContainer = document.getElementById("poms");
+const resetBtn = document.querySelector('#menuButtons button[title="Reset to Default"]');
+// Simple audio setup: preload fixed sources on load
 let pressSound = new Audio('https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true');
 let timerSound = new Audio('https://github.com/anthonyhuang07/PomodoPro/blob/main/assets/ringin.mp3?raw=true');
+pressSound.preload = 'auto';
+timerSound.preload = 'auto';
 let defaultTime = 1500;
 let shortTime = 300;
 let longTime = 900;
@@ -38,12 +44,24 @@ let currentTime = -1;
 let mode = 1; // 1 - Pomodoro | 2 - Short | 3 - Long 
 let numOfPomodoros = 0;
 let timer;
+let resetConfirm = false;
+let resetConfirmTimer = null;
+let pomsBeforeLong = 4;
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
 countdown.innerHTML = "Loading";
 settings.style.display = "none";
 setRandomBackgroundColor();
 window.onload = () => {
+    // Preload sounds once so they are ready when user interacts
+    try {
+        pressSound.load();
+    }
+    catch { }
+    try {
+        timerSound.load();
+    }
+    catch { }
     const bgImageUrl = localStorage.getItem("bgImageUrl");
     if (bgImageUrl) {
         document.body.style.backgroundImage = `url(${bgImageUrl})`;
@@ -66,6 +84,13 @@ window.onload = () => {
         longInput.value = Math.floor(longTime / 60);
         longInputSec.value = longTime % 60;
     }
+    const storedPomsBeforeLong = localStorage.getItem("pomsBeforeLong");
+    if (storedPomsBeforeLong) {
+        pomsBeforeLong = Math.max(1, parseInt(storedPomsBeforeLong));
+    }
+    if (noOfPomInput)
+        noOfPomInput.value = String(pomsBeforeLong);
+    renderPomDots(pomsBeforeLong);
     countdown.innerHTML = formatTime(defaultTime);
 };
 document.addEventListener('click', function (event) {
@@ -128,7 +153,7 @@ function startTimer() {
             currentTime = -1;
             playSoundTimer();
             clearInterval(timer);
-            if (mode === 1 && numOfPomodoros !== 3) { // if was in Pomodoro Mode (go to Short)
+            if (mode === 1 && numOfPomodoros !== (pomsBeforeLong - 1)) { // if was in Pomodoro Mode (go to Short)
                 mode = 2;
                 countdown.innerHTML = formatTime(shortTime);
                 document.title = formatTime(shortTime) + " - PomodoPro";
@@ -139,8 +164,9 @@ function startTimer() {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 2 && numOfPomodoros !== 4) { // if was in Short Time Mode (return to Default)
+            else if (mode === 2 && numOfPomodoros !== pomsBeforeLong) { // if was in Short Time Mode (return to Default)
                 numOfPomodoros++;
+                updatePomFill();
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
                 document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -151,8 +177,9 @@ function startTimer() {
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
             }
-            else if (mode === 1 && numOfPomodoros === 3) { // if was in Pomodoro Mode (go to Long)
+            else if (mode === 1 && numOfPomodoros === (pomsBeforeLong - 1)) { // if was in Pomodoro Mode (go to Long)
                 numOfPomodoros++;
+                updatePomFill();
                 mode = 3;
                 countdown.innerHTML = formatTime(longTime);
                 document.title = formatTime(longTime) + " - PomodoPro";
@@ -165,9 +192,7 @@ function startTimer() {
             }
             else if (mode === 3) { // if was in Long Time Mode (return to Default)
                 numOfPomodoros = 0;
-                p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-                p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-                p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+                updatePomFill();
                 mode = 1;
                 countdown.innerHTML = formatTime(defaultTime);
                 document.title = formatTime(defaultTime) + " - PomodoPro";
@@ -177,15 +202,6 @@ function startTimer() {
                 pomodoro.style.color = "black";
                 startButton.style.display = "block";
                 stopButton.style.display = "none";
-            }
-            if (numOfPomodoros == 1) {
-                p2.style.backgroundColor = "white";
-            }
-            else if (numOfPomodoros == 2) {
-                p3.style.backgroundColor = "white";
-            }
-            else if (numOfPomodoros == 3) {
-                p4.style.backgroundColor = "white";
             }
         }
     }, 1000);
@@ -219,11 +235,9 @@ function restartTimer() {
 }
 function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2, col3) {
     playSound();
-    p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-    p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-    p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-    currentTime = -1;
     numOfPomodoros = 0;
+    updatePomFill();
+    currentTime = -1;
     clearInterval(timer);
     mode = modeNum;
     countdown.innerHTML = formatTime(timeType);
@@ -238,6 +252,15 @@ function modeSwitcher(modeNum, timeType, pomoCol, shortCol, longCol, col1, col2,
 }
 function settingsMenu() {
     playSound();
+    // Cancel any reset confirmation when toggling settings
+    if (resetBtn) {
+        resetConfirm = false;
+        if (resetConfirmTimer) {
+            clearTimeout(resetConfirmTimer);
+            resetConfirmTimer = null;
+        }
+        resetBtn.textContent = "Reset";
+    }
     if (settings.style.display == "none") {
         settings.style.display = "block";
         background.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
@@ -265,6 +288,31 @@ function switchMenu(val) {
     }
 }
 function resetToDefaults() {
+    // First click asks for confirmation
+    if (!resetConfirm) {
+        if (resetBtn) {
+            resetBtn.textContent = "Are you sure?";
+        }
+        resetConfirm = true;
+        // Auto-cancel after 3 seconds
+        if (resetConfirmTimer)
+            clearTimeout(resetConfirmTimer);
+        resetConfirmTimer = setTimeout(() => {
+            resetConfirm = false;
+            if (resetBtn)
+                resetBtn.textContent = "Reset";
+            resetConfirmTimer = null;
+        }, 3000);
+        return;
+    }
+    // Second click: proceed with actual reset
+    resetConfirm = false;
+    if (resetConfirmTimer) {
+        clearTimeout(resetConfirmTimer);
+        resetConfirmTimer = null;
+    }
+    if (resetBtn)
+        resetBtn.textContent = "Reset";
     clearInterval(timer);
     mode = 1;
     numOfPomodoros = 0;
@@ -279,9 +327,12 @@ function resetToDefaults() {
     pomodoro.style.color = "black";
     startButton.style.display = "block";
     stopButton.style.display = "none";
-    p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-    p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
-    p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+    // Reset number of pomodoros before long break to default
+    pomsBeforeLong = 4;
+    if (noOfPomInput)
+        noOfPomInput.value = String(pomsBeforeLong);
+    localStorage.setItem("pomsBeforeLong", String(pomsBeforeLong));
+    renderPomDots(pomsBeforeLong);
     countdown.innerHTML = formatTime(defaultTime);
     document.body.style.backgroundImage = "";
     pomoInput.value = Math.floor(defaultTime / 60);
@@ -318,10 +369,25 @@ form.addEventListener('submit', function (e) {
     startButton.style.display = "block";
     stopButton.style.display = "none";
     clearInterval(timer);
+    // Cancel any pending reset confirmation on save
+    if (resetBtn) {
+        resetConfirm = false;
+        if (resetConfirmTimer) {
+            clearTimeout(resetConfirmTimer);
+            resetConfirmTimer = null;
+        }
+        resetBtn.textContent = "Reset";
+    }
     currentTime = -1;
     defaultTime = (parseInt(pomoInput.value) * 60) + parseInt(pomoInputSec.value);
     shortTime = (parseInt(shortInput.value) * 60) + parseInt(shortInputSec.value);
     longTime = (parseInt(longInput.value) * 60) + parseInt(longInputSec.value);
+    if (noOfPomInput) {
+        const val = Math.max(1, parseInt(noOfPomInput.value || '4'));
+        pomsBeforeLong = val;
+        localStorage.setItem("pomsBeforeLong", String(pomsBeforeLong));
+        renderPomDots(pomsBeforeLong);
+    }
     switch (mode) {
         case 1:
             countdown.innerHTML = formatTime(defaultTime);
@@ -348,6 +414,11 @@ form.addEventListener('submit', function (e) {
         const file = almSound.files[0];
         const audioUrl = URL.createObjectURL(file);
         timerSound = new Audio(audioUrl);
+        timerSound.preload = 'auto';
+        try {
+            timerSound.load();
+        }
+        catch { }
     }
     if (fontInput.files[0]) {
         const file = fontInput.files[0];
@@ -387,3 +458,26 @@ document.querySelectorAll('#menuButtons button').forEach(button => {
         imgCheckmark.style.display = "none";
     });
 });
+// ----- Pomodoro dots rendering helpers -----
+function renderPomDots(total) {
+    if (!pomsContainer)
+        return;
+    pomsContainer.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'pom';
+        dot.style.transition = 'background-color 0.25s';
+        pomsContainer.appendChild(dot);
+    }
+    updatePomFill();
+}
+function updatePomFill() {
+    if (!pomsContainer)
+        return;
+    const dots = Array.from(pomsContainer.querySelectorAll('.pom'));
+    // Always show at least 1 filled dot as the starting state
+    const fillCount = Math.min(dots.length, 1 + Math.max(0, numOfPomodoros));
+    dots.forEach((d, idx) => {
+        d.style.backgroundColor = idx < fillCount ? 'white' : 'rgba(0, 0, 0, 0.25)';
+    });
+}
