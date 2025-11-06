@@ -54,8 +54,6 @@ let currentTime: number = -1;
 let mode: number = 1 // 1 - Pomodoro | 2 - Short | 3 - Long 
 let numOfPomodoros: number = 0;
 let timer: ReturnType<typeof setInterval>;
-let timerWorker: Worker | null = null;
-let workerActive = false;
 
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
@@ -151,99 +149,75 @@ function letsGo() { // Starts Timer
   startTimer();
 }
 
-function ensureWorker() {
-  if (!timerWorker) {
-    timerWorker = new Worker('./src/scripts/timerWorker.js');
-    timerWorker.onmessage = (e: MessageEvent) => {
-      const data: any = e.data || {};
-      if (data.type === 'tick') {
-        const remaining: number = data.remaining;
-        currentTime = remaining;
-        document.title = formatTime(currentTime) + " - PomodoPro";
-        countdown.innerHTML = formatTime(currentTime);
-      } else if (data.type === 'done') {
-        workerActive = false;
-        handleTimerComplete();
-      }
-    };
-  }
-}
-
 function startTimer() {
   startButton.style.display = "none";
   stopButton.style.display = "block";
+  timer = setInterval(() => {
+    currentTime--;
+    document.title = formatTime(currentTime) + " - PomodoPro";
+    countdown.innerHTML = formatTime(currentTime);
 
-  ensureWorker();
-  const deadlineMs = Date.now() + (currentTime * 1000);
-  workerActive = true;
-  timerWorker!.postMessage({ type: 'start', deadlineMs });
-}
+    if (currentTime <= 0) {
+      currentTime = -1;
+      playSoundTimer();
+      clearInterval(timer);
+      if (mode === 1 && numOfPomodoros !== 3) { // if was in Pomodoro Mode (go to Short)
+        mode = 2;
+        countdown.innerHTML = formatTime(shortTime);
+        document.title = formatTime(shortTime) + " - PomodoPro";
+        pomodoro.style.backgroundColor = "transparent";
+        pomodoro.style.color = "white";
+        shortBreak.style.backgroundColor = "white";
+        shortBreak.style.color = "black";
+        startButton.style.display = "block";
+        stopButton.style.display = "none";
+      } else if (mode === 2 && numOfPomodoros !== 4) { // if was in Short Time Mode (return to Default)
+        numOfPomodoros++
+        mode = 1;
+        countdown.innerHTML = formatTime(defaultTime);
+        document.title = formatTime(defaultTime) + " - PomodoPro";
+        pomodoro.style.backgroundColor = "white";
+        pomodoro.style.color = "black";
+        shortBreak.style.backgroundColor = "transparent";
+        shortBreak.style.color = "white";
+        startButton.style.display = "block";
+        stopButton.style.display = "none";
+      } else if (mode === 1 && numOfPomodoros === 3) { // if was in Pomodoro Mode (go to Long)
+        numOfPomodoros++
+        mode = 3;
+        countdown.innerHTML = formatTime(longTime);
+        document.title = formatTime(longTime) + " - PomodoPro";
+        longBreak.style.backgroundColor = "white";
+        longBreak.style.color = "black";
+        pomodoro.style.backgroundColor = "transparent";
+        pomodoro.style.color = "white";
+        startButton.style.display = "block";
+        stopButton.style.display = "none";
+      } else if (mode === 3) { // if was in Long Time Mode (return to Default)
+        numOfPomodoros = 0;
+        p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
+        p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
+        p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
+        mode = 1;
+        countdown.innerHTML = formatTime(defaultTime);
+        document.title = formatTime(defaultTime) + " - PomodoPro";
+        longBreak.style.backgroundColor = "transparent";
+        longBreak.style.color = "white";
+        pomodoro.style.backgroundColor = "white";
+        pomodoro.style.color = "black";
+        startButton.style.display = "block";
+        stopButton.style.display = "none";
+      }
 
-function stopWorkerCountdown() {
-  if (timerWorker && workerActive) {
-    timerWorker.postMessage({ type: 'stop' });
-    workerActive = false;
-  }
-}
-
-function handleTimerComplete() {
-  currentTime = -1;
-  playSoundTimer();
-  if (mode === 1 && numOfPomodoros !== 3) { // if was in Pomodoro Mode (go to Short)
-    mode = 2;
-    countdown.innerHTML = formatTime(shortTime);
-    document.title = formatTime(shortTime) + " - PomodoPro";
-    pomodoro.style.backgroundColor = "transparent";
-    pomodoro.style.color = "white";
-    shortBreak.style.backgroundColor = "white";
-    shortBreak.style.color = "black";
-    startButton.style.display = "block";
-    stopButton.style.display = "none";
-  } else if (mode === 2 && numOfPomodoros !== 4) { // if was in Short Time Mode (return to Default)
-    numOfPomodoros++
-    mode = 1;
-    countdown.innerHTML = formatTime(defaultTime);
-    document.title = formatTime(defaultTime) + " - PomodoPro";
-    pomodoro.style.backgroundColor = "white";
-    pomodoro.style.color = "black";
-    shortBreak.style.backgroundColor = "transparent";
-    shortBreak.style.color = "white";
-    startButton.style.display = "block";
-    stopButton.style.display = "none";
-  } else if (mode === 1 && numOfPomodoros === 3) { // if was in Pomodoro Mode (go to Long)
-    numOfPomodoros++
-    mode = 3;
-    countdown.innerHTML = formatTime(longTime);
-    document.title = formatTime(longTime) + " - PomodoPro";
-    longBreak.style.backgroundColor = "white";
-    longBreak.style.color = "black";
-    pomodoro.style.backgroundColor = "transparent";
-    pomodoro.style.color = "white";
-    startButton.style.display = "block";
-    stopButton.style.display = "none";
-  } else if (mode === 3) { // if was in Long Time Mode (return to Default)
-    numOfPomodoros = 0;
-    p2.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
-    p3.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
-    p4.style.backgroundColor = "rgba(0, 0, 0, 0.25)"
-    mode = 1;
-    countdown.innerHTML = formatTime(defaultTime);
-    document.title = formatTime(defaultTime) + " - PomodoPro";
-    longBreak.style.backgroundColor = "transparent";
-    longBreak.style.color = "white";
-    pomodoro.style.backgroundColor = "white";
-    pomodoro.style.color = "black";
-    startButton.style.display = "block";
-    stopButton.style.display = "none";
-  }
-
-  if (numOfPomodoros == 1) {
-    p2.style.backgroundColor = "white"
-  } else if (numOfPomodoros == 2) {
-    p3.style.backgroundColor = "white"
-  } else if (numOfPomodoros == 3) {
-    p4.style.backgroundColor = "white"
-  }
+      if (numOfPomodoros == 1) {
+        p2.style.backgroundColor = "white"
+      } else if (numOfPomodoros == 2) {
+        p3.style.backgroundColor = "white"
+      } else if (numOfPomodoros == 3) {
+        p4.style.backgroundColor = "white"
+      }
+    }
+  }, 1000);
 }
 
 function stopTimer() {
@@ -251,7 +225,6 @@ function stopTimer() {
   startButton.style.display = "block";
   stopButton.style.display = "none";
   clearInterval(timer)
-  stopWorkerCountdown();
 }
 
 function restartTimer() {
@@ -285,7 +258,6 @@ function modeSwitcher(modeNum: number, timeType: number, pomoCol: string, shortC
   currentTime = -1;
   numOfPomodoros = 0;
   clearInterval(timer);
-  stopWorkerCountdown();
   mode = modeNum
   countdown.innerHTML = formatTime(timeType)
   startButton.style.display = "block";
@@ -327,7 +299,6 @@ function switchMenu(val: number) {
 
 function resetToDefaults() {
   clearInterval(timer)
-  stopWorkerCountdown();
 
   mode = 1
   numOfPomodoros = 0;
@@ -390,7 +361,6 @@ form.addEventListener('submit', function (e) {
   startButton.style.display = "block";
   stopButton.style.display = "none";
   clearInterval(timer)
-  stopWorkerCountdown();
   currentTime = -1;
   defaultTime = (parseInt(pomoInput.value) * 60) + parseInt(pomoInputSec.value);
   shortTime = (parseInt(shortInput.value) * 60) + parseInt(shortInputSec.value);
