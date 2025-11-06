@@ -343,8 +343,18 @@ function focusInput(inputId: string) {
   input.focus();
 }
 
+const imgCheckmark = document.getElementById("imgCheckmark") as HTMLSpanElement;
+
+imgInput.addEventListener('change', function () {
+  if (imgInput.files[0]) {
+    imgCheckmark.style.display = "inline";
+  }
+});
+
 form.addEventListener('submit', function (e) {
   e.preventDefault();
+  imgCheckmark.style.display = "none";
+  chooseImg.innerHTML = "Upload Image";
   settings.style.display = "none";
   background.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
   countdown.style.color = "rgba(255, 255, 255, 1)";
@@ -409,7 +419,9 @@ form.addEventListener('submit', function (e) {
 
 form.addEventListener('reset', function (e) {
   e.preventDefault();
-  settingsMenu()
+  imgCheckmark.style.display = "none";
+  imgInput.value = ""; // Clear the uploaded image file from the input field
+  settingsMenu();
 })
 
 chooseImg.addEventListener('click', function () {
@@ -423,3 +435,9 @@ chooseAlmSound.addEventListener('click', function () {
 chooseFont.addEventListener('click', function () {
   fontInput.click();
 })
+
+document.querySelectorAll('#menuButtons button').forEach(button => {
+  button.addEventListener('click', function () {
+    imgCheckmark.style.display = "none";
+  });
+});
