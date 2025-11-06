@@ -13,7 +13,7 @@ const longBreak = document.getElementById("long") as HTMLInputElement;
 
 const settings: any = document.getElementById("settingsmenu") as HTMLInputElement;
 
-const pomodoroTimer = document.getElementById("pomodoro-timers") as HTMLInputElement;
+const pomodoroTimer = document.getElementById("settings-timer") as HTMLInputElement;
 const customization = document.getElementById("customizations") as HTMLInputElement;
 
 const form = document.getElementById("form") as HTMLInputElement;

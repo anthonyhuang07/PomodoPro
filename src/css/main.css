@@ -119,11 +119,7 @@ main button:hover {
   color: black !important;
 }
 
-#start,
-#stop,
-#restart,
-#settings,
-#popout {
+.actionbtns button {
   margin: 0 1rem 0 1rem;
   width: 4.5rem;
   height: 4.5rem;
@@ -132,18 +128,10 @@ main button:hover {
   -webkit-transition: background-color 0.25s;
   transition: background-color 0.25s;
 }
-#start:hover,
-#stop:hover,
-#restart:hover,
-#settings:hover,
-#popout:hover {
+.actionbtns button:hover {
   background-color: transparent !important;
 }
-#start:hover i,
-#stop:hover i,
-#restart:hover i,
-#settings:hover i,
-#popout:hover i {
+.actionbtns button:hover i {
   color: white;
 }
 
@@ -276,7 +264,7 @@ i {
   margin-right: 2rem;
 }
 
-#pomodoro-timers {
+#settings-timer {
   width: 100%;
   height: 80%;
   -webkit-box-orient: vertical;
@@ -288,7 +276,7 @@ i {
           align-items: flex-start;
   margin: 2rem 0 2rem 0;
 }
-#pomodoro-timers input {
+#settings-timer input {
   font-family: "Inter", sans-serif;
   font-size: 1em;
   background-color: black;
@@ -298,7 +286,7 @@ i {
   padding: 0.5rem;
   width: 7.5rem;
 }
-#pomodoro-timers input[type=number]::-webkit-inner-spin-button, #pomodoro-timers input[type=number]::-webkit-outer-spin-button {
+#settings-timer input[type=number]::-webkit-inner-spin-button, #settings-timer input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -369,7 +357,7 @@ i {
   margin: 2rem 0 2rem 0;
   display: none;
 }
-#customizations div {
+#customizations > div {
   margin-bottom: 2rem;
 }
 #customizations button {
@@ -388,19 +376,6 @@ i {
 
 #almSound {
   display: none;
-}
-
-#backgroundcustom {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-#backgroundcustom div {
-  margin-right: 1rem;
 }
 
 #imginput {
@@ -481,19 +456,94 @@ i {
 
 @media screen and (max-width: 500px) {
   main h1 {
-    font-size: 8em;
+    font-size: 9em;
   }
   header button {
     padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
     margin: 0 0.5rem 0 0.5rem;
-    font-size: 1em;
+    font-size: 1.25em;
     color: white;
   }
-  header button i {
-    color: white;
+  .actionbtns button {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 0.5rem 0 0.5rem;
+  }
+  .actionbtns button i {
+    font-size: 1.25em;
+    color: black;
     text-decoration: none;
   }
   #settingsmenu {
     width: 90%;
+    height: 40rem;
+  }
+  #settingsmenu h3 {
+    text-align: center;
+  }
+  #settingsmenu form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #settingsmenu form #pomodoro-side {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 100%;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    padding: 2rem;
+    height: auto;
+    border-radius: 1rem 1rem 0 0;
+  }
+  #settingsmenu form #seperator {
+    height: 0;
+    width: 80%;
+    margin-right: 0;
+  }
+  #settingsmenu form #mainMenu {
+    width: 100%;
+  }
+  #settingsmenu form #mainMenu #settings-timer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  #settingsmenu form #mainMenu #settings-timer .timetype {
+    margin: 0 0.25rem 0 0.25rem;
+  }
+  #settingsmenu form #mainMenu #settings-timer #settings-pombeforelong {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #settingsmenu form #mainMenu #customizations > div {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #settingsmenu form #mainMenu > div {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }/*# sourceMappingURL=main.css.map */
