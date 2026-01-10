@@ -47,7 +47,6 @@ let mode = 1; // 1 - Pomodoro | 2 - Short | 3 - Long
 let numOfPomodoros = 0;
 let timer;
 let resetConfirm = false;
-let resetConfirmTimer = null;
 let pomsBeforeLong = 4;
 pressSound.volume = 0.5;
 timerSound.volume = 0.5;
@@ -271,10 +270,6 @@ function settingsMenu() {
     // Cancel any reset confirmation when toggling settings
     if (resetBtn) {
         resetConfirm = false;
-        if (resetConfirmTimer) {
-            clearTimeout(resetConfirmTimer);
-            resetConfirmTimer = null;
-        }
         resetBtn.textContent = "Reset";
     }
     if (settings.style.display == "none") {
@@ -310,23 +305,10 @@ function resetToDefaults() {
             resetBtn.textContent = "Are you sure?";
         }
         resetConfirm = true;
-        // Auto-cancel after 3 seconds
-        if (resetConfirmTimer)
-            clearTimeout(resetConfirmTimer);
-        resetConfirmTimer = setTimeout(() => {
-            resetConfirm = false;
-            if (resetBtn)
-                resetBtn.textContent = "Reset";
-            resetConfirmTimer = null;
-        }, 3000);
         return;
     }
     // Second click: proceed with actual reset
     resetConfirm = false;
-    if (resetConfirmTimer) {
-        clearTimeout(resetConfirmTimer);
-        resetConfirmTimer = null;
-    }
     if (resetBtn)
         resetBtn.textContent = "Reset";
     clearInterval(timer);
@@ -360,6 +342,8 @@ function resetToDefaults() {
     playSound();
     settingsMenu();
     setRandomBackgroundColor();
+    countdown.style.fontFamily = "'Rubik', sans-serif";
+    localStorage.removeItem('customFontDataUrl');
     localStorage.setItem("bgImageUrl", "");
     localStorage.setItem("defaultTime", defaultTime.toString());
     localStorage.setItem("shortTime", shortTime.toString());
@@ -402,10 +386,6 @@ form.addEventListener('submit', function (e) {
     // Cancel any pending reset confirmation on save
     if (resetBtn) {
         resetConfirm = false;
-        if (resetConfirmTimer) {
-            clearTimeout(resetConfirmTimer);
-            resetConfirmTimer = null;
-        }
         resetBtn.textContent = "Reset";
     }
     currentTime = -1;
